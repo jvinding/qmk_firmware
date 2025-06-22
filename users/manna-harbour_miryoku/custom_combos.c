@@ -1,3 +1,5 @@
+#ifdef COMBO_ENABLE
+
 enum combos {
   DELZ_UNDO,
   ZX_CUT,
@@ -21,3 +23,4 @@ combo_t key_combos[] = {
   [CV_PASTE] = COMBO(combo_cv, U_PST),
   [VB_REDO] = COMBO(combo_vb, U_RDO)
 };
+#endif
