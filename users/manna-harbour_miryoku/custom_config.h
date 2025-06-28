@@ -1,5 +1,7 @@
 #pragma once
 
+#define EE_HANDS
+
 #define MIRYOKU_NAV_INVERTEDT
 #define MIRYOKU_LAYERS_FLIP
 #define MIRYOKU_ALPHAS_COLEMAK
@@ -7,7 +9,14 @@
 #define MIRYOKU_TAP_QWERTY
 #define MIRYOKU_CLIPBOARD_MAC
 
+// #define SPLIT_USB_DETECT
+// #define TAPPING_TOGGLE 2
+#define TAPPING_TERM 250
+
+#define RGB_MATRIX_LED_FLUSH_LIMIT 96
+
 #define CHORDAL_HOLD
+
 #define NO_ACTION_ONESHOT
 #define NO_MUSIC_MODE
 
