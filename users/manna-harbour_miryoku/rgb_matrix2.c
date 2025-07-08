@@ -204,8 +204,9 @@ bool rgb_matrix_indicators_user(void) {
             } else {
                 rgb_matrix_set_color(RIGHT_COL5_ROW0, RGB_UNUSED);
                 rgb_matrix_set_color(RIGHT_COL4_ROW0, RGB_ALPHA);
-                rgb_matrix_set_color(RIGHT_COL3_ROW0, RGB_UNUSED);
-                rgb_matrix_set_color(RIGHT_COL2_ROW0, RGB_QWERTY);
+                rgb_matrix_set_color(RIGHT_COL3_ROW0, RGB_QWERTY);
+                rgb_matrix_set_color(RIGHT_COL2_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL1_ROW0, RGB_UNUSED);
 
                 rgb_matrix_set_color(RIGHT_COL5_ROW2, RGB_UNUSED);
                 rgb_matrix_set_color(RIGHT_COL3_ROW2, RGB_NUMBER);
@@ -227,8 +228,9 @@ bool rgb_matrix_indicators_user(void) {
             } else {
                 rgb_matrix_set_color(RIGHT_COL5_ROW0, RGB_UNUSED);
                 rgb_matrix_set_color(RIGHT_COL4_ROW0, RGB_ALPHA);
-                rgb_matrix_set_color(RIGHT_COL3_ROW0, RGB_UNUSED);
-                rgb_matrix_set_color(RIGHT_COL2_ROW0, RGB_QWERTY);
+                rgb_matrix_set_color(RIGHT_COL3_ROW0, RGB_QWERTY);
+                rgb_matrix_set_color(RIGHT_COL2_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL1_ROW0, RGB_UNUSED);
 
                 rgb_matrix_set_color(RIGHT_COL5_ROW2, RGB_UNUSED);
                 rgb_matrix_set_color(RIGHT_COL3_ROW2, RGB_SYMBOL);
@@ -252,8 +254,9 @@ bool rgb_matrix_indicators_user(void) {
             } else {
                 rgb_matrix_set_color(RIGHT_COL5_ROW0, RGB_UNUSED);
                 rgb_matrix_set_color(RIGHT_COL4_ROW0, RGB_ALPHA);
-                rgb_matrix_set_color(RIGHT_COL3_ROW0, RGB_UNUSED);
-                rgb_matrix_set_color(RIGHT_COL2_ROW0, RGB_QWERTY);
+                rgb_matrix_set_color(RIGHT_COL3_ROW0, RGB_QWERTY);
+                rgb_matrix_set_color(RIGHT_COL2_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL1_ROW0, RGB_UNUSED);
 
                 rgb_matrix_set_color(RIGHT_COL5_ROW2, RGB_UNUSED);
                 rgb_matrix_set_color(RIGHT_COL3_ROW2, RGB_FUNCTION);
@@ -268,8 +271,9 @@ bool rgb_matrix_indicators_user(void) {
         case _NUMBER:
             rgb_matrix_sethsv_noeeprom(HSV_NUMBER);
             if (is_keyboard_left()) {
-                rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_QWERTY);
-                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL1_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_QWERTY);
                 rgb_matrix_set_color(LEFT_COL4_ROW0, RGB_ALPHA);
                 rgb_matrix_set_color(LEFT_COL5_ROW0, RGB_UNUSED);
 
@@ -286,8 +290,9 @@ bool rgb_matrix_indicators_user(void) {
         case _SYMBOL:
             rgb_matrix_sethsv_noeeprom(HSV_SYMBOL);
             if (is_keyboard_left()) {
-                rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_QWERTY);
-                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL1_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_QWERTY);
                 rgb_matrix_set_color(LEFT_COL4_ROW0, RGB_ALPHA);
                 rgb_matrix_set_color(LEFT_COL5_ROW0, RGB_UNUSED);
 
@@ -304,8 +309,9 @@ bool rgb_matrix_indicators_user(void) {
         case _FUNCTION:
             rgb_matrix_sethsv_noeeprom(HSV_FUNCTION);
             if (is_keyboard_left()) {
-                rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_QWERTY);
-                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL1_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_QWERTY);
                 rgb_matrix_set_color(LEFT_COL4_ROW0, RGB_ALPHA);
                 rgb_matrix_set_color(LEFT_COL5_ROW0, RGB_UNUSED);
 
