@@ -1,8 +1,12 @@
 # Copyright 2019 Manna Harbour
 # https://github.com/manna-harbour/miryoku
 
+SRC += custom_code.c
+# SRC += rgb_matrix_user.c
+SRC += rgb_matrix2.c
+
 ## TODO JJV: disable console
-CONSOLE_ENABLE = yes
+# CONSOLE_ENABLE = yes
 COMBO_ENABLE = yes
 # VIA_ENABLE = yes
 
@@ -12,7 +16,6 @@ COMBO_ENABLE = yes
 RGBLIGHT_ENABLE = no
 BACKLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes
-# RGB_MATRIX_ENABLE = yes
 # RGB_MATRIX_DRIVER = WS2812
 LTO_ENABLE = yes
 SPACE_CADET_ENABLE = no
