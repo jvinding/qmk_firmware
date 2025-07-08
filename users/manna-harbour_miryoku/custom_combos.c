@@ -1,3 +1,6 @@
+#include QMK_KEYBOARD_H
+#include "manna-harbour_miryoku.h"
+
 #ifdef COMBO_ENABLE
 
 enum combos {
