@@ -2,6 +2,7 @@
 # https://github.com/manna-harbour/miryoku
 
 SRC += custom_code.c
+SRC += custom_combos.c
 # SRC += rgb_matrix_user.c
 SRC += rgb_matrix2.c
 

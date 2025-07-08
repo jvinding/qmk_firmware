@@ -196,21 +196,129 @@ bool rgb_matrix_indicators_user(void) {
             break;
         case _NAV:
             rgb_matrix_sethsv_noeeprom(HSV_NAV);
+            if (is_keyboard_left()) {
+                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_INVERTED_T);
+                rgb_matrix_set_color(LEFT_COL2_ROW1, RGB_INVERTED_T);
+                rgb_matrix_set_color(LEFT_COL3_ROW1, RGB_INVERTED_T);
+                rgb_matrix_set_color(LEFT_COL4_ROW1, RGB_INVERTED_T);
+            } else {
+                rgb_matrix_set_color(RIGHT_COL5_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL4_ROW0, RGB_ALPHA);
+                rgb_matrix_set_color(RIGHT_COL3_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL2_ROW0, RGB_QWERTY);
+
+                rgb_matrix_set_color(RIGHT_COL5_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL3_ROW2, RGB_NUMBER);
+                rgb_matrix_set_color(RIGHT_COL2_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL1_ROW2, RGB_UNUSED);
+
+                rgb_matrix_set_color(RIGHT_THUMB_PRIMARY, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_THUMB_SECONDARY, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_THUMB_TERTIARY, RGB_UNUSED);
+            }
             break;
         case _MOUSE:
             rgb_matrix_sethsv_noeeprom(HSV_MOUSE);
+            if (is_keyboard_left()) {
+                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_INVERTED_T);
+                rgb_matrix_set_color(LEFT_COL2_ROW1, RGB_INVERTED_T);
+                rgb_matrix_set_color(LEFT_COL3_ROW1, RGB_INVERTED_T);
+                rgb_matrix_set_color(LEFT_COL4_ROW1, RGB_INVERTED_T);
+            } else {
+                rgb_matrix_set_color(RIGHT_COL5_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL4_ROW0, RGB_ALPHA);
+                rgb_matrix_set_color(RIGHT_COL3_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL2_ROW0, RGB_QWERTY);
+
+                rgb_matrix_set_color(RIGHT_COL5_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL3_ROW2, RGB_SYMBOL);
+                rgb_matrix_set_color(RIGHT_COL2_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL1_ROW2, RGB_UNUSED);
+
+                rgb_matrix_set_color(RIGHT_THUMB_PRIMARY, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_THUMB_SECONDARY, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_THUMB_TERTIARY, RGB_UNUSED);
+            }
             break;
         case _MEDIA:
             rgb_matrix_sethsv_noeeprom(HSV_MEDIA);
+            if (is_keyboard_left()) {
+                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_INVERTED_T);
+                rgb_matrix_set_color(LEFT_COL2_ROW1, RGB_INVERTED_T);
+                rgb_matrix_set_color(LEFT_COL3_ROW1, RGB_INVERTED_T);
+                rgb_matrix_set_color(LEFT_COL4_ROW1, RGB_INVERTED_T);
+
+                rgb_matrix_set_color(LEFT_THUMB_TERTIARY, RGB_UNUSED);
+            } else {
+                rgb_matrix_set_color(RIGHT_COL5_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL4_ROW0, RGB_ALPHA);
+                rgb_matrix_set_color(RIGHT_COL3_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL2_ROW0, RGB_QWERTY);
+
+                rgb_matrix_set_color(RIGHT_COL5_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL3_ROW2, RGB_FUNCTION);
+                rgb_matrix_set_color(RIGHT_COL2_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_COL1_ROW2, RGB_UNUSED);
+
+                rgb_matrix_set_color(RIGHT_THUMB_PRIMARY, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_THUMB_SECONDARY, RGB_UNUSED);
+                rgb_matrix_set_color(RIGHT_THUMB_TERTIARY, RGB_UNUSED);
+            }
             break;
         case _NUMBER:
             rgb_matrix_sethsv_noeeprom(HSV_NUMBER);
+            if (is_keyboard_left()) {
+                rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_QWERTY);
+                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL4_ROW0, RGB_ALPHA);
+                rgb_matrix_set_color(LEFT_COL5_ROW0, RGB_UNUSED);
+
+                rgb_matrix_set_color(LEFT_COL1_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL2_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL3_ROW2, RGB_NAV);
+                rgb_matrix_set_color(LEFT_COL5_ROW2, RGB_UNUSED);
+
+                rgb_matrix_set_color(LEFT_THUMB_PRIMARY, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_THUMB_SECONDARY, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_THUMB_TERTIARY, RGB_UNUSED);
+            }
             break;
         case _SYMBOL:
             rgb_matrix_sethsv_noeeprom(HSV_SYMBOL);
+            if (is_keyboard_left()) {
+                rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_QWERTY);
+                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL4_ROW0, RGB_ALPHA);
+                rgb_matrix_set_color(LEFT_COL5_ROW0, RGB_UNUSED);
+
+                rgb_matrix_set_color(LEFT_COL1_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL2_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL3_ROW2, RGB_MOUSE);
+                rgb_matrix_set_color(LEFT_COL5_ROW2, RGB_UNUSED);
+
+                rgb_matrix_set_color(LEFT_THUMB_PRIMARY, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_THUMB_SECONDARY, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_THUMB_TERTIARY, RGB_UNUSED);
+            }
             break;
         case _FUNCTION:
             rgb_matrix_sethsv_noeeprom(HSV_FUNCTION);
+            if (is_keyboard_left()) {
+                rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_QWERTY);
+                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL4_ROW0, RGB_ALPHA);
+                rgb_matrix_set_color(LEFT_COL5_ROW0, RGB_UNUSED);
+
+                rgb_matrix_set_color(LEFT_COL1_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL2_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL3_ROW2, RGB_MEDIA);
+                rgb_matrix_set_color(LEFT_COL5_ROW2, RGB_UNUSED);
+
+                rgb_matrix_set_color(LEFT_THUMB_PRIMARY, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_THUMB_SECONDARY, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_THUMB_TERTIARY, RGB_UNUSED);
+            }
+
             break;
     }
     return false;
