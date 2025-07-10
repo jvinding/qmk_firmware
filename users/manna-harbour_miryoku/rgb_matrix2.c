@@ -75,36 +75,40 @@
 
 #define LAYER_COUNT 8
 
-enum layers { _ALPHA, _QWERTY, _WINDOWS, _NAV, _MOUSE, _MEDIA, _NUMBER, _SYMBOL, _FUNCTION };
+enum layers { _ALPHA, _QWERTY, _WINDOWS, _BUTTON, _NAV, _MOUSE, _MEDIA, _NUMBER, _NUMPAD, _SYMBOL, _FUNCTION };
 typedef struct {
     uint8_t r;
     uint8_t g;
     uint8_t b;
 } rgb_key_t;
 
-#define HSV_ALPHA HSV_WHITE         // Alpha keys
-#define HSV_QWERTY HSV_RED          // Modifier keys
-#define HSV_WINDOWS HSV_SPRINGGREEN // Windows
-#define HSV_NAV HSV_CYAN            // Navigation keys
-#define HSV_MOUSE HSV_YELLOW        // Mouse controls
-#define HSV_MEDIA HSV_PURPLE        // Media controls
-#define HSV_NUMBER HSV_BLUE         // Number keys
-#define HSV_SYMBOL HSV_GREEN        // Symbol keys
-#define HSV_FUNCTION HSV_ORANGE     // Function keys
-#define HSV_INVERTED_T HSV_MAGENTA  // Modifier keys
-#define HSV_UNUSED HSV_BLACK        // Unused keys
+#define HSV_ALPHA HSV_WHITE
+#define HSV_QWERTY HSV_RED
+#define HSV_WINDOWS HSV_SPRINGGREEN
+#define HSV_BUTTON HSV_PINK
+#define HSV_NAV HSV_CYAN
+#define HSV_MOUSE HSV_YELLOW
+#define HSV_MEDIA HSV_PURPLE
+#define HSV_NUMBER HSV_BLUE
+#define HSV_NUMPAD HSV_TURQUOISE
+#define HSV_SYMBOL HSV_GREEN
+#define HSV_FUNCTION HSV_ORANGE
+#define HSV_INVERTED_T HSV_MAGENTA
+#define HSV_UNUSED HSV_BLACK
 
-#define RGB_ALPHA RGB_WHITE         // Alpha keys
-#define RGB_NUMBER RGB_BLUE         // Number keys
-#define RGB_WINDOWS RGB_SPRINGGREEN // Windows
-#define RGB_SYMBOL RGB_GREEN        // Symbol keys
-#define RGB_FUNCTION RGB_ORANGE     // Function keys
-#define RGB_NAV RGB_CYAN            // Navigation keys
-#define RGB_MEDIA RGB_PURPLE        // Media controls
-#define RGB_MOUSE RGB_YELLOW        // Mouse controls
-#define RGB_INVERTED_T RGB_MAGENTA  // Modifier keys
-#define RGB_QWERTY RGB_RED          // Modifier keys
-#define RGB_UNUSED RGB_BLACK        // Unused keys
+#define RGB_ALPHA RGB_WHITE
+#define RGB_QWERTY RGB_RED
+#define RGB_WINDOWS RGB_SPRINGGREEN
+#define RGB_BUTTON RGB_PINK
+#define RGB_NAV RGB_CYAN
+#define RGB_MOUSE RGB_YELLOW
+#define RGB_MEDIA RGB_PURPLE
+#define RGB_NUMBER RGB_BLUE
+#define RGB_NUMPAD RGB_TURQUOISE
+#define RGB_SYMBOL RGB_GREEN
+#define RGB_FUNCTION RGB_ORANGE
+#define RGB_INVERTED_T RGB_MAGENTA
+#define RGB_UNUSED RGB_BLACK
 
 // static const rgb_key_t layer_default_colors[LAYER_COUNT] = {{RGB_ALPHA}, {RGB_QWERTY}, {RGB_NAV}, {RGB_MOUSE}, {RGB_MEDIA}, {RGB_NUMBER}, {RGB_SYMBOL}, {RGB_FUNCTION}};
 
@@ -208,6 +212,9 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(RIGHT_THUMB_TERTIARY, RGB_MEDIA);
             }
             break;
+        case _BUTTON:
+            rgb_matrix_sethsv_noeeprom(HSV_BUTTON);
+            break;
         case _NAV:
             rgb_matrix_sethsv_noeeprom(HSV_NAV);
             if (is_keyboard_left()) {
@@ -281,6 +288,24 @@ bool rgb_matrix_indicators_user(void) {
             break;
         case _NUMBER:
             rgb_matrix_sethsv_noeeprom(HSV_NUMBER);
+            if (is_keyboard_left()) {
+                rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_WINDOWS);
+                rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_QWERTY);
+                rgb_matrix_set_color(LEFT_COL4_ROW0, RGB_ALPHA);
+                rgb_matrix_set_color(LEFT_COL5_ROW0, RGB_NUMPAD);
+
+                rgb_matrix_set_color(LEFT_COL1_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL2_ROW2, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_COL3_ROW2, RGB_NAV);
+                rgb_matrix_set_color(LEFT_COL5_ROW2, RGB_UNUSED);
+
+                rgb_matrix_set_color(LEFT_THUMB_PRIMARY, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_THUMB_SECONDARY, RGB_UNUSED);
+                rgb_matrix_set_color(LEFT_THUMB_TERTIARY, RGB_UNUSED);
+            }
+            break;
+         case _NUMPAD:
+            rgb_matrix_sethsv_noeeprom(HSV_NUMPAD);
             if (is_keyboard_left()) {
                 rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_WINDOWS);
                 rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_QWERTY);

@@ -34,30 +34,32 @@
 // #undef RGBLIGHT_ANIMATIONS
 
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 9
+#define DYNAMIC_KEYMAP_LAYER_COUNT 11
 // #define LAYER_STATE_8BIT
 
 #define MIRYOKU_LAYER_LIST \
 MIRYOKU_X(BASE,   "Base") \
 MIRYOKU_X(EXTRA,  "Extra") \
 MIRYOKU_X(TAP,    "Tap") \
+MIRYOKU_X(BUTTON, "Button") \
 MIRYOKU_X(NAV,    "Nav") \
 MIRYOKU_X(MOUSE,  "Mouse") \
 MIRYOKU_X(MEDIA,  "Media") \
 MIRYOKU_X(NUM,    "Num") \
+MIRYOKU_X(NUMPAD, "Numpad") \
 MIRYOKU_X(SYM,    "Sym") \
 MIRYOKU_X(FUN,    "Fun")
 
 #define MIRYOKU_LAYER_BASE \
 KC_Q,              KC_W,              KC_F,              KC_P,              KC_G,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,           \
 LCTL_T(KC_A),      LALT_T(KC_R),      LGUI_T(KC_S),      LSFT_T(KC_T),      HYPR_T(KC_D),      HYPR_T(KC_H),      RSFT_T(KC_N),      RGUI_T(KC_E),      RALT_T(KC_I),      RCTL_T(KC_O),      \
-KC_Z,              KC_X,              KC_C,              KC_V,              KC_B,              KC_K,              KC_M,              KC_COMM,           KC_DOT,            KC_SLSH,           \
+LT(U_BUTTON,KC_Z), KC_X,              KC_C,              KC_V,              KC_B,              KC_K,              KC_M,              KC_COMM,           KC_DOT,            LT(U_BUTTON,KC_SLSH),\
 U_NP,              U_NP,              LT(U_FUN,KC_DEL),  LT(U_NUM,KC_BSPC), LT(U_SYM,KC_ENT),  LT(U_MOUSE,KC_TAB),LT(U_NAV,KC_SPC),  LT(U_MEDIA,KC_ESC),U_NP,              U_NP
 
 #define MIRYOKU_LAYER_EXTRA \
 KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,              \
 LCTL_T(KC_A),      LALT_T(KC_S),      LGUI_T(KC_D),      LSFT_T(KC_F),      HYPR_T(KC_G),      HYPR_T(KC_H),      RSFT_T(KC_J),      RGUI_T(KC_K),      RALT_T(KC_L),      RCTL_T(KC_QUOT),   \
-KC_Z,              KC_X,              KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           KC_DOT,            KC_SLSH,           \
+LT(U_BUTTON,KC_Z), KC_X,              KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           KC_DOT,            LT(U_BUTTON,KC_SLSH),\
 U_NP,              U_NP,              LT(U_FUN,KC_DEL),  LT(U_NUM,KC_BSPC), LT(U_SYM,KC_ENT),  LT(U_MOUSE,KC_TAB),LT(U_NAV,KC_SPC),  LT(U_MEDIA,KC_ESC),U_NP,              U_NP
 
 #define MIRYOKU_LAYER_TAP \
@@ -85,10 +87,18 @@ U_NU,              U_NU,              U_NU,              U_NU,              RGB_
 U_NP,              U_NP,              KC_MUTE,           KC_MPLY,           KC_MSTP,           U_NA,              U_NA,              U_NA,              U_NP,              U_NP
 
 #define MIRYOKU_LAYER_NUM \
-TD(U_TD_BOOT),     TD(U_TD_U_TAP),    TD(U_TD_U_EXTRA),  TD(U_TD_U_BASE),   U_NA,              KC_LBRC,           KC_7,              KC_8,              KC_9,              KC_RBRC,           \
+TD(U_TD_BOOT),     TD(U_TD_U_TAP),    TD(U_TD_U_EXTRA),  TD(U_TD_U_BASE),   MO(U_NUMPAD),      KC_LBRC,           KC_7,              KC_8,              KC_9,              KC_RBRC,           \
 KC_LCTL,           KC_LALT,           KC_LGUI,           KC_LSFT,           KC_HYPR,           KC_EQL,            KC_4,              KC_5,              KC_6,              KC_SCLN,           \
 U_NA,              U_NU,              TD(U_TD_U_NAV),    TD(U_TD_U_NUM),    U_NA,              KC_BSLS,           KC_1,              KC_2,              KC_3,              KC_GRV,            \
 U_NP,              U_NP,              U_NA,              U_NA,              U_NA,              KC_MINS,           KC_0,              KC_DOT,            U_NP,              U_NP
+
+#define MIRYOKU_LAYER_NUMPAD \
+TD(U_TD_BOOT),     TD(U_TD_U_TAP),    TD(U_TD_U_EXTRA),  TD(U_TD_U_BASE),   U_NA,              KC_KP_SLASH,       KC_KP_7,           KC_KP_8,           KC_KP_9,           KC_KP_MINUS,       \
+KC_LCTL,           KC_LALT,           KC_LGUI,           KC_LSFT,           KC_HYPR,           KC_KP_ASTERISK,    KC_KP_4,           KC_KP_5,           KC_KP_6,           KC_KP_PLUS,        \
+U_NA,              U_NU,              TD(U_TD_U_NAV),    TD(U_TD_U_NUM),    U_NA,              KC_KP_ENTER,       KC_KP_1,           KC_KP_2,           KC_KP_3,           KC_KP_EQUAL,       \
+U_NP,              U_NP,              U_NA,              U_NA,              U_NA,              KC_BSPC,           KC_KP_0,           KC_KP_DOT,         U_NP,              U_NP
+
+#define MIRYOKU_LAYERMAPPING_NUMPAD MIRYOKU_MAPPING
 
 #define MIRYOKU_LAYER_SYM \
 TD(U_TD_BOOT),     TD(U_TD_U_TAP),    TD(U_TD_U_EXTRA),  TD(U_TD_U_BASE),   U_NA,              KC_LCBR,           KC_AMPR,           KC_ASTR,           KC_LPRN,           KC_RCBR,           \
