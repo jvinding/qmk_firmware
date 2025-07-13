@@ -4,7 +4,7 @@
 SRC += custom_code.c
 SRC += custom_combos.c
 SRC += custom_oled.c
-SRC += rgb_matrix2.c
+SRC += custom_rgb.c
 
 COMBO_ENABLE = yes
 
