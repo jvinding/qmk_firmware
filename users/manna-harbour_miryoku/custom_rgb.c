@@ -3,11 +3,6 @@
 #include "manna-harbour_miryoku.h"
 #include "rgb_matrix.h"
 
-// Fix for split keyboard RGB matrix issues:
-// 1. Enable SPLIT_TRANSPORT_MIRROR for proper RGB sync between halves
-// 2. Use RGB_MATRIX_INDICATOR_SET_COLOR macro instead of direct rgb_matrix_set_color
-// 3. Use RGB_MATRIX_USE_LIMITS for proper LED range handling on split keyboards
-
 #define LEFT_UNDERGLOW_TOP_RIGHT 0
 #define LEFT_UNDERGLOW_TOP_MIDDLE 1
 #define LEFT_UNDERGLOW_TOP_LEFT 2
@@ -110,74 +105,15 @@ typedef struct {
 #define RGB_INVERTED_T RGB_MAGENTA
 #define RGB_UNUSED RGB_BLACK
 
-// static const rgb_key_t layer_default_colors[LAYER_COUNT] = {{RGB_ALPHA}, {RGB_QWERTY}, {RGB_NAV}, {RGB_MOUSE}, {RGB_MEDIA}, {RGB_NUMBER}, {RGB_SYMBOL}, {RGB_FUNCTION}};
-
 void keyboard_post_init_user(void) {
-    // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-    // set initial effect on keyboard start; ignore what's in EEPROM!
-    // rgb_matrix_mode_noeeprom(
-    // RGB_MATRIX_TYPING_HEATMAP
-    //   RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-    // );
-
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
     rgb_matrix_sethsv_noeeprom(HSV_OFF);
-    /*
-    // https://docs.qmk.fm/#/feature_rgb_matrix?id=indicators-without-rgb-matrix-effect
-    //
-    // Indicators without RGB Matrix Effect
-    //
-    // If you want to just use RGB indicators without RGB matrix effect, it is not
-    // possible to disable the latter because toggling RGB off will disable
-    // everything. You can workaround it with solid effect and colors off using
-    // this init function:
-    //
-    // rgb_matrix_sethsv_noeeprom(HSV_OFF); // XXX: this throws away the color!
-    HSV hsv = rgb_matrix_get_hsv();
-    rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, 0); // turn off, preserving color
-    */
 }
 
-// bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-//     rgb_key_t color = {RGB_ALPHA};
-//     // RGB_MATRIX_USE_LIMITS(led_min, led_max);
-//     for (uint8_t index = led_min; index < led_max; ++index) {
-//         RGB_MATRIX_INDICATOR_SET_COLOR(index, color.r, color.g, color.b);
-//     }
-//     return false;
-// }
-// for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
-//     for (uint8_t col = 1; col < MATRIX_COLS; ++col) {
-//         uint8_t index = g_led_config.matrix_co[row][col];
-//         if (index != NO_LED) {
-//             RGB_MATRIX_INDICATOR_SET_COLOR(index, RGB_ALPHA.r, RGB_ALPHA.g, RGB_ALPHA.b);
-//         }
-//     }
-// }
-// }
 bool rgb_matrix_indicators_user(void) {
-    // if (is_keyboard_left()) return false;
-    // uprintf("rgb_matrix_indicators_user side: %s\n", is_keyboard_left() ? "left" : "right");
-    // uint8_t       led_min               = 0;
-    // uint8_t       led_max               = RGB_MATRIX_LED_COUNT;
-    // const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
-    // if (is_keyboard_left() && (led_max > k_rgb_matrix_split[0])) led_max = k_rgb_matrix_split[0];
-    // if (!(is_keyboard_left()) && (led_min < k_rgb_matrix_split[0])) led_min = k_rgb_matrix_split[0];
-
-    // uprintf("led_min: %d led_max: %d\n", led_min, led_max);
-
-    // rgb_matrix_sethsv_noeeprom(HSV_OFF);
-
-    // for (uint8_t index = led_min; index < led_max; ++index) {
-    //     rgb_matrix_set_color(index, RGB_WHITE);
-    // }
-    // if (true) return false;
-
     switch (get_highest_layer(layer_state | default_layer_state)) {
         case U_BASE:
             rgb_matrix_sethsv_noeeprom(HSV_ALPHA);
-            // rgb_matrix_set_color_all(RGB_ALPHA);
-            // Use direct rgb_matrix_set_color calls - these should work with SPLIT_TRANSPORT_MIRROR enabled
             if (is_keyboard_left()) {
                 rgb_matrix_set_color(LEFT_THUMB_PRIMARY, RGB_NUMBER);
                 rgb_matrix_set_color(LEFT_THUMB_SECONDARY, RGB_SYMBOL);
