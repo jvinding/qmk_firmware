@@ -123,6 +123,6 @@ U_NP,              U_NP,              U_NA,              U_NA,              U_NA
 #define RGB_MATRIX_SAT_STEP 8
 #define RGB_MATRIX_VAL_STEP 8
 #define RGB_MATRIX_SPD_STEP 10
-#define ENABLE_RGB_MATRIX_BREATHING
+// #define ENABLE_RGB_MATRIX_BREATHING
 #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 #endif
