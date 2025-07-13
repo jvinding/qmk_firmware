@@ -1,5 +1,6 @@
-
 #include "quantum.h"
+#include "custom_config.h"
+#include "manna-harbour_miryoku.h"
 #include "rgb_matrix.h"
 
 // Fix for split keyboard RGB matrix issues:
@@ -75,7 +76,6 @@
 
 #define LAYER_COUNT 8
 
-enum layers { _ALPHA, _QWERTY, _WINDOWS, _BUTTON, _NAV, _MOUSE, _MEDIA, _NUMBER, _NUMPAD, _SYMBOL, _FUNCTION };
 typedef struct {
     uint8_t r;
     uint8_t g;
@@ -174,7 +174,7 @@ bool rgb_matrix_indicators_user(void) {
     // if (true) return false;
 
     switch (get_highest_layer(layer_state | default_layer_state)) {
-        case _ALPHA:
+        case U_BASE:
             rgb_matrix_sethsv_noeeprom(HSV_ALPHA);
             // rgb_matrix_set_color_all(RGB_ALPHA);
             // Use direct rgb_matrix_set_color calls - these should work with SPLIT_TRANSPORT_MIRROR enabled
@@ -188,7 +188,7 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(RIGHT_THUMB_TERTIARY, RGB_MEDIA);
             }
             break;
-        case _QWERTY:
+        case U_EXTRA:
             rgb_matrix_sethsv_noeeprom(HSV_QWERTY);
             if (is_keyboard_left()) {
                 rgb_matrix_set_color(LEFT_THUMB_PRIMARY, RGB_NUMBER);
@@ -200,7 +200,7 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(RIGHT_THUMB_TERTIARY, RGB_MEDIA);
             }
             break;
-        case _WINDOWS:
+        case U_TAP:
             rgb_matrix_sethsv_noeeprom(HSV_WINDOWS);
             if (is_keyboard_left()) {
                 rgb_matrix_set_color(LEFT_THUMB_PRIMARY, RGB_NUMBER);
@@ -212,10 +212,10 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(RIGHT_THUMB_TERTIARY, RGB_MEDIA);
             }
             break;
-        case _BUTTON:
+        case U_BUTTON:
             rgb_matrix_sethsv_noeeprom(HSV_BUTTON);
             break;
-        case _NAV:
+        case U_NAV:
             rgb_matrix_sethsv_noeeprom(HSV_NAV);
             if (is_keyboard_left()) {
                 rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_INVERTED_T);
@@ -238,7 +238,7 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(RIGHT_THUMB_TERTIARY, RGB_UNUSED);
             }
             break;
-        case _MOUSE:
+        case U_MOUSE:
             rgb_matrix_sethsv_noeeprom(HSV_MOUSE);
             if (is_keyboard_left()) {
                 rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_INVERTED_T);
@@ -261,7 +261,7 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(RIGHT_THUMB_TERTIARY, RGB_UNUSED);
             }
             break;
-        case _MEDIA:
+        case U_MEDIA:
             rgb_matrix_sethsv_noeeprom(HSV_MEDIA);
             if (is_keyboard_left()) {
                 rgb_matrix_set_color(LEFT_COL3_ROW0, RGB_INVERTED_T);
@@ -286,7 +286,7 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(RIGHT_THUMB_TERTIARY, RGB_UNUSED);
             }
             break;
-        case _NUMBER:
+        case U_NUM:
             rgb_matrix_sethsv_noeeprom(HSV_NUMBER);
             if (is_keyboard_left()) {
                 rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_WINDOWS);
@@ -304,7 +304,7 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(LEFT_THUMB_TERTIARY, RGB_UNUSED);
             }
             break;
-         case _NUMPAD:
+         case U_NUMPAD:
             rgb_matrix_sethsv_noeeprom(HSV_NUMPAD);
             if (is_keyboard_left()) {
                 rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_WINDOWS);
@@ -322,7 +322,7 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(LEFT_THUMB_TERTIARY, RGB_UNUSED);
             }
             break;
-        case _SYMBOL:
+        case U_SYM:
             rgb_matrix_sethsv_noeeprom(HSV_SYMBOL);
             if (is_keyboard_left()) {
                 rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_WINDOWS);
@@ -340,7 +340,7 @@ bool rgb_matrix_indicators_user(void) {
                 rgb_matrix_set_color(LEFT_THUMB_TERTIARY, RGB_UNUSED);
             }
             break;
-        case _FUNCTION:
+        case U_FUN:
             rgb_matrix_sethsv_noeeprom(HSV_FUNCTION);
             if (is_keyboard_left()) {
                 rgb_matrix_set_color(LEFT_COL2_ROW0, RGB_WINDOWS);
