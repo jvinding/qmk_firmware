@@ -91,6 +91,10 @@ static uint16_t hires_scroll_resolution;
 #define POINTING_DEVICE_DRIVER_CONCAT(name) name##_pointing_device_driver
 #define POINTING_DEVICE_DRIVER(name) POINTING_DEVICE_DRIVER_CONCAT(name)
 
+#ifdef POINTING_DEVICE_DRIVER_PS2
+extern const pointing_device_driver_t ps2_pointing_device_driver;
+#endif
+
 #ifdef POINTING_DEVICE_DRIVER_custom
 __attribute__((weak)) bool pointing_device_driver_init(void) {
     return false;

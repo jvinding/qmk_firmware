@@ -1,0 +1,14 @@
+---
+description: QMK fork context, HolyKeebs remote, shared layout location
+alwaysApply: true
+---
+
+# Project context
+
+- This repository is a **QMK fork** (not vanilla upstream). Assume local conventions and custom paths may differ from stock QMK docs.
+- A **git remote named `holykeebs`** exists for reference: compare against it, cherry-pick, or look up how HolyKeebs-specific hardware and shared code were handled. Use it when something is “how we did it on HolyKeebs” or when porting from that line of keyboards.
+- The author’s **shared keymap and user code** live under `users/jvinding/`. New keyboards should reuse that user space; per-board keymaps (e.g. `keyboards/.../keymaps/jvinding/`) should stay thin: matrix wiring, `rules.mk` / `config.h` for features, and include the shared user implementation—**not** a full copy of the layout in every keyboard folder.
+
+# Design expectation for `users/jvinding`
+
+- Layouts and hardware differ: support **variable key counts**, **optional pointing devices** (trackball, trackpoint, etc.), **RGB / per-key lighting**, and other accessories **only where the board enables them** (via `config.h`, `rules.mk`, and optional `.c` hooks). Use placeholders (`JV_NP` / `JV_NA` in `jvinding.h`) and conditional compilation so one user tree can serve many boards.

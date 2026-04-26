@@ -1,0 +1,12 @@
+---
+description: Conventions for shared users/jvinding layout and jvinding keymaps
+globs: users/jvinding/**,**/keymaps/jvinding/**
+alwaysApply: false
+---
+
+# `users/jvinding` and `keymaps/jvinding`
+
+- **One shared story**: `users/jvinding` holds layers, tap-dance, combos, and behavior. Each keyboard’s `keymaps/jvinding/` should only add what the **physical matrix and enabled features** require: `LAYOUT_*` fill with row macros from `jvinding.h`, set `QMK_KEYBOARD` / includes, and enable split, RGB, pointing device, or OLED in that keymap or board `rules.mk` / `config.h` as needed.
+- **Varying key counts**: Reuse the row/column macro pattern; use `JV_NP` (not present), `JV_NA` (unavailable), `JV_NU` (unused) as documented in `jvinding.h` so the same layer definitions can map onto smaller or different boards without duplicating layer enums.
+- **Accessories (pointing, LEDs, display)**: Don’t assume every board has them. Guard optional code with the same feature flags the board uses in QMK (`POINTING_DEVICE_*`, `RGBLIGHT_*` / `RGB_MATRIX_*`, `OLED_ENABLE`, etc.). If a feature is board-specific, the hook belongs in the keyboard keymap, `keyboard.json`, or a small `*.c` next to the keymap, not in unrelated shared files.
+- **HolyKeebs cross-check**: For HolyKeebs hardware patterns (RPC, custom drivers, `users/holykeebs`), the **`holykeebs` git remote** and that user folder are the reference; this fork’s `users/jvinding` is the home for the author’s **personal layout** that must stay portable across all their keyboards.
