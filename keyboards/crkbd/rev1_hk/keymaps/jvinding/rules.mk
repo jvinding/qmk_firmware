@@ -34,6 +34,8 @@ SRC += $(TOP_DIR)/users/jvinding/oled.c
 # Required by oled.c for caps word sync
 CAPS_WORD_ENABLE     = yes
 
+MOUSEKEY_ENABLE      = yes
+
 # Per-keyboard RGB hook
 SRC += rgb_keyboard.c
 
