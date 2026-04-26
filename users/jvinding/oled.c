@@ -1,5 +1,15 @@
 #include QMK_KEYBOARD_H
 #include "jvinding.h"
+#include "caps_word.h"
+#include "users/holykeebs/pointing.h"
+
+// caps_word_set_user runs on the master (right) whenever caps word turns on or
+// off.  Mark g_hk_state dirty so the existing holykeebs housekeeping task
+// syncs the new value to the slave (left) within ~100 ms.
+void caps_word_set_user(bool active) {
+    g_hk_state.caps_word = active;
+    g_hk_state.dirty     = true;
+}
 
 #ifdef OLED_ENABLE
 
@@ -7,12 +17,12 @@ static const char * const jv_layer_names[] = {
     [JV_BASE]   = "Base",
     [JV_EXTRA]  = "Extra",
     [JV_TAP]    = "Tap",
-    [JV_BUTTON] = "Button",
+    [JV_BUTTON] = "Btn",
     [JV_NAV]    = "Nav",
     [JV_MOUSE]  = "Mouse",
     [JV_MEDIA]  = "Media",
     [JV_NUM]    = "Num",
-    [JV_NUMPAD] = "Numpad",
+    [JV_NUMPAD] = "NPad",
     [JV_SYM]    = "Sym",
     [JV_FUN]    = "Fun",
 };
@@ -29,16 +39,19 @@ bool oled_task_user(void) {
     if (!is_keyboard_left()) return false;
 
     uint8_t layer = get_highest_layer(layer_state | default_layer_state);
-    oled_write_P(PSTR("Layer"), false);
-    oled_write_P(PSTR("\n"), false);
-    if (layer < sizeof(jv_layer_names) / sizeof(jv_layer_names[0])) {
-        oled_write(jv_layer_names[layer], false);
+    oled_write_ln_P(PSTR("Layer"), false);
+    oled_write_ln_P(PSTR("-----"), false);
+    if (layer < ARRAY_SIZE(jv_layer_names) && jv_layer_names[layer]) {
+        oled_write_ln(jv_layer_names[layer], false);
+    } else {
+        oled_write_ln_P(PSTR("?"), false);
     }
 
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_ln_P(PSTR(""), false);
 
     led_t led = host_keyboard_led_state();
-    oled_write_P(led.caps_lock ? PSTR("CAPS\n") : PSTR("    \n"), false);
+    oled_write_ln_P(led.caps_lock     ? PSTR("CAPS") : PSTR("    "), false);
+    oled_write_ln_P(g_hk_state.caps_word ? PSTR("CWRD") : PSTR("    "), false);
 
     return false;
 }

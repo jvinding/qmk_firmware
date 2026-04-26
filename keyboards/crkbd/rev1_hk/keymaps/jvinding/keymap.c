@@ -105,3 +105,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 };
+
+// Shift + CW_TOGG → KC_CAPS.
+//
+// process_record_keymap runs inside process_record_kb (line ~363 of quantum.c),
+// which is before process_caps_word (line ~392).  A key override would be too
+// late: process_caps_word returns false for CW_TOGG, short-circuiting the chain
+// before process_key_override ever fires.
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == CW_TOGG && record->event.pressed && (get_mods() & MOD_MASK_SHIFT)) {
+        uint8_t saved = get_mods();
+        clear_mods();
+        tap_code(KC_CAPS);
+        set_mods(saved);
+        return false;
+    }
+    return true;
+}
