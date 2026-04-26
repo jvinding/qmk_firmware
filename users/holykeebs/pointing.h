@@ -56,6 +56,8 @@ typedef struct PACKED {
     bool setting_sniping_scale : 1;
     bool setting_scroll_buffer : 1;
 
+    bool caps_word : 1;
+
     hk_pointer_state_t main;
     hk_pointer_state_t peripheral;
 

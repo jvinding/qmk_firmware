@@ -28,6 +28,12 @@ SRC += $(TOP_DIR)/users/holykeebs/pimoroni.c
 SRC += $(TOP_DIR)/users/holykeebs/hk_debug.c
 SRC += $(TOP_DIR)/users/holykeebs/rpc.c
 
+# jvinding user space OLED
+SRC += $(TOP_DIR)/users/jvinding/oled.c
+
+# Required by oled.c for caps word sync
+CAPS_WORD_ENABLE     = yes
+
 # Per-keyboard RGB hook
 SRC += rgb_keyboard.c
 

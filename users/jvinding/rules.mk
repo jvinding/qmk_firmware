@@ -1,5 +1,3 @@
-SRC += jvinding.c combos.c oled.c rgb.c
-
 MOUSEKEY_ENABLE      = yes
 EXTRAKEY_ENABLE      = yes
 TAP_DANCE_ENABLE     = yes
