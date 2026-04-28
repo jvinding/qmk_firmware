@@ -210,16 +210,18 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     const uint8_t h1 = (uint8_t)RGB_MATRIX_LED_COUNT;
 #endif
 
-    const uint8_t raw_val = rgb_matrix_get_val();
-    const uint8_t val     = raw_val > RGB_MATRIX_MAXIMUM_BRIGHTNESS
-                                ? RGB_MATRIX_MAXIMUM_BRIGHTNESS
-                                : raw_val;
+    const uint8_t val = 64;
 
     for (uint8_t i = h0; i < h1; i++) {
+        // WS2812 green is ~3× brighter than red/blue at equal drive current.
+        // Scale G by 85/256 ≈ 1/3 so R=G=B in the cache produces perceptual white.
         rgb_matrix_set_color(i,
-            (uint8_t)(((uint16_t)jv_led_cache[i].r * val) >> 8),
-            (uint8_t)(((uint16_t)jv_led_cache[i].g * val) >> 8),
-            (uint8_t)(((uint16_t)jv_led_cache[i].b * val) >> 8));
+            (uint8_t)(((uint16_t)jv_led_cache[i].r * val * 80u) >> 16),
+            (uint8_t)(((uint32_t)jv_led_cache[i].g * val * 72u) >> 16),
+            (uint8_t)(((uint32_t)jv_led_cache[i].b * val * 640u) >> 16));
+            // (uint8_t)(((uint16_t)jv_led_cache[i].r * val) >> 8),
+            // (uint8_t)(((uint32_t)jv_led_cache[i].g * val * 85u) >> 16),
+            // (uint8_t)(((uint32_t)jv_led_cache[i].b * val * 768u) >> 16));
     }
 
     jv_rgb_matrix_indicators_keyboard(
