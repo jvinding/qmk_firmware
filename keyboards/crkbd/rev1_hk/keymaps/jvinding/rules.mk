@@ -28,8 +28,9 @@ SRC += $(TOP_DIR)/users/holykeebs/pimoroni.c
 SRC += $(TOP_DIR)/users/holykeebs/hk_debug.c
 SRC += $(TOP_DIR)/users/holykeebs/rpc.c
 
-# jvinding user space OLED
+# jvinding user space OLED and RGB
 SRC += $(TOP_DIR)/users/jvinding/oled.c
+SRC += $(TOP_DIR)/users/jvinding/rgb.c
 
 # Required by oled.c for caps word sync
 CAPS_WORD_ENABLE     = yes
