@@ -21,15 +21,16 @@ Per-keyboard `rules.mk` at `keyboards/.../keymaps/jvinding/` is what the build s
   - Unplug, hold **reset** (or the boot combo for your half), plug in USB, release when the drive mounts; copy the `.uf2` to that drive.  
   - **Split:** flash the same `.uf2` to **both** halves (or follow Holykeebs’ left/right build if you ever use side-specific images).
 
-### Another keyboard (template)
+### Holykeebs Span — `holykeebs/spankbd`
 
-- **Board path:** `path/to/keyboard` (e.g. `myvendor/myboard/rev1`)
+- **Board path:** `holykeebs/spankbd`
 - **Compile**
-  - `qmk compile -kb path/to/keyboard -km jvinding`
+  - `qmk compile -kb holykeebs/spankbd -km jvinding`
 - **Output**
-  - (fill in: `.uf2` / `.hex` / path under `.build/`)
+  - `.build/holykeebs_spankbd_jvinding.uf2`
 - **Flash**
-  - (fill in: bootloader, tool, or `qmk flash` args)
+  - Unplug, hold **reset** (or double-tap the reset button) to enter bootloader, plug in USB; copy the `.uf2` to the drive that mounts.
+  - **Split:** flash the same `.uf2` to **both** halves.
 
 ---
 
