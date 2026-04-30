@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "jvinding.h"
+#include "combos.c"
+#include "jvinding.c"
 
 // ---------------------------------------------------------------------------
 // Keymap — all 42 keys written explicitly per layer.

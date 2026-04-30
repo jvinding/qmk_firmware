@@ -28,7 +28,7 @@ SRC += $(TOP_DIR)/users/holykeebs/pimoroni.c
 SRC += $(TOP_DIR)/users/holykeebs/hk_debug.c
 SRC += $(TOP_DIR)/users/holykeebs/rpc.c
 
-# jvinding user space OLED and RGB
+# jvinding user space OLED and RGB (combos.c and jvinding.c are #included from keymap.c)
 SRC += $(TOP_DIR)/users/jvinding/oled.c
 SRC += $(TOP_DIR)/users/jvinding/rgb.c
 
@@ -36,6 +36,9 @@ SRC += $(TOP_DIR)/users/jvinding/rgb.c
 CAPS_WORD_ENABLE     = yes
 
 MOUSEKEY_ENABLE      = yes
+COMBO_ENABLE         = yes
+TAP_DANCE_ENABLE     = yes
+KEY_OVERRIDE_ENABLE  = yes
 
 # Per-keyboard RGB hook
 SRC += rgb_keyboard.c
