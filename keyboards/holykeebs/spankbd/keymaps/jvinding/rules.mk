@@ -27,13 +27,16 @@ SRC += $(TOP_DIR)/users/holykeebs/pimoroni.c
 SRC += $(TOP_DIR)/users/holykeebs/hk_debug.c
 SRC += $(TOP_DIR)/users/holykeebs/rpc.c
 
-# jvinding user space OLED
+# jvinding user space OLED (combos.c and jvinding.c are #included from keymap.c)
 SRC += $(TOP_DIR)/users/jvinding/oled.c
 
 # Required by oled.c for caps word sync
 CAPS_WORD_ENABLE     = yes
 
 MOUSEKEY_ENABLE      = yes
+COMBO_ENABLE         = yes
+TAP_DANCE_ENABLE     = yes
+KEY_OVERRIDE_ENABLE  = yes
 
 # keymap.c includes jvinding.h from the user space directory
 EXTRAINCDIRS += users/jvinding

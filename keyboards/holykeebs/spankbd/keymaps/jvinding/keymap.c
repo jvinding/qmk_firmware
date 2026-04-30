@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "jvinding.h"
+#include "combos.c"
+#include "jvinding.c"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
