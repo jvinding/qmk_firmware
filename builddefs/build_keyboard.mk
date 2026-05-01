@@ -419,10 +419,13 @@ ifneq ($(wildcard $(QMK_USERSPACE)),)
 endif
 
 # If the equivalent users directory exists in userspace, use that in preference to anything currently in the main repo
+# Guard against empty QMK_USERSPACE — on macOS the case-insensitive fs makes
+# $(wildcard /users/<name>) match the home directory, corrupting USER_PATH.
 ifneq ($(QMK_USERSPACE),)
 	ifneq ($(wildcard $(QMK_USERSPACE)/$(USER_PATH)),)
     	USER_PATH := $(QMK_USERSPACE)/$(USER_PATH)
 	endif
+endif
 endif
 
 # Pull in user level rules.mk
