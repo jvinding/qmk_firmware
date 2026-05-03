@@ -22,12 +22,13 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 static void render_layer_line(void) {
     uint8_t layer = get_highest_layer(layer_state | default_layer_state);
-    oled_write_P(PSTR("LYR "), false);
+    oled_write_ln_P(PSTR("LYR"), false);
     if (layer < (JV_FUN + 1) && jv_layer_names[layer]) {
         oled_write_ln(jv_layer_names[layer], false);
     } else {
         oled_write_ln_P(PSTR("?"), false);
     }
+    oled_write_ln_P(PSTR(""), false);
 }
 
 static void render_mods_line(void) {
@@ -38,26 +39,28 @@ static void render_mods_line(void) {
     buf[2] = (m & MOD_MASK_ALT)   ? 'A' : '.';
     buf[3] = (m & MOD_MASK_GUI)   ? 'G' : '.';
     buf[4] = '\0';
-    oled_write_P(PSTR("MOD "), false);
+    oled_write_ln_P(PSTR("MOD"), false);
     oled_write_ln(buf, false);
+    oled_write_ln_P(PSTR(""), false);
 }
 
 static void render_wpm_line(void) {
     char buf[8];
     snprintf(buf, sizeof(buf), "%3u", get_current_wpm());
-    oled_write_P(PSTR("WPM "), false);
+    oled_write_ln_P(PSTR("WPM"), false);
     oled_write_ln(buf, false);
+    oled_write_ln_P(PSTR(""), false);
 }
 
 static void render_uptime_line(void) {
-    uint32_t s  = timer_read32() / 1000;
-    uint16_t h  = (uint16_t)(s / 3600);
-    uint8_t  m  = (uint8_t)((s % 3600) / 60);
-    uint8_t  ss = (uint8_t)(s % 60);
-    char buf[12];
-    snprintf(buf, sizeof(buf), "%uh%02um%02u", h, m, ss);
-    oled_write_P(PSTR("UP  "), false);
+    uint32_t s = timer_read32() / 1000;
+    uint16_t h = (uint16_t)(s / 3600);
+    uint8_t  m = (uint8_t)((s % 3600) / 60);
+    char buf[8];
+    snprintf(buf, sizeof(buf), "%uh%02um", h, m);
+    oled_write_ln_P(PSTR("UP"), false);
     oled_write_ln(buf, false);
+    oled_write_ln_P(PSTR(""), false);
 }
 
 bool oled_task_user(void) {
