@@ -44,7 +44,7 @@ Per-keyboard `rules.mk` at `keyboards/.../keymaps/jvinding/` is what the build s
   - **Split:** flash the same `.uf2` to **both** halves.
 - **Notes**
   - Master = **right** half (USB-connected side).
-  - Outer pinky columns are not soldered; those positions are `KC_NO` on every layer.
+  - Outer pinky columns are not used; those positions are `KC_NO` on every layer.
   - Right OLED: layer name + Caps Lock + Caps Word indicator.
   - Left OLED: live status board — layer, modifiers, WPM, uptime.
   - RGB brightness cap starts at `120`; lower `RGB_MATRIX_MAXIMUM_BRIGHTNESS` in `config.h` if the board browns out.
