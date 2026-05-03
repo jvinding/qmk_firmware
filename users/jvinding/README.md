@@ -32,6 +32,23 @@ Per-keyboard `rules.mk` at `keyboards/.../keymaps/jvinding/` is what the build s
   - Unplug, hold **reset** (or double-tap the reset button) to enter bootloader, plug in USB; copy the `.uf2` to the drive that mounts.
   - **Split:** flash the same `.uf2` to **both** halves.
 
+### ControllerWorks Mini42 — `controllerworks/mini42`
+
+- **Board path:** `controllerworks/mini42`
+- **Compile**
+  - `qmk compile -kb controllerworks/mini42 -km jvinding`
+- **Output**
+  - `.build/controllerworks_mini42_jvinding.uf2`
+- **Flash**
+  - Unplug, hold **reset** (or tap `JV_TD_BOOT` on the FUN layer) to enter bootloader, plug in USB; copy the `.uf2` to the drive that mounts.
+  - **Split:** flash the same `.uf2` to **both** halves.
+- **Notes**
+  - Master = **right** half (USB-connected side).
+  - Outer pinky columns are not soldered; those positions are `KC_NO` on every layer.
+  - Right OLED: layer name + Caps Lock + Caps Word indicator.
+  - Left OLED: live status board — layer, modifiers, WPM, uptime.
+  - RGB brightness cap starts at `120`; lower `RGB_MATRIX_MAXIMUM_BRIGHTNESS` in `config.h` if the board browns out.
+
 ---
 
-Add a new **“### Name — path”** subsection for each future keyboard so the list stays a single place to look.
+Add a new **”### Name — path”** subsection for each future keyboard so the list stays a single place to look.

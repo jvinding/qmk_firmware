@@ -15,7 +15,7 @@ __attribute__((weak)) void jv_rgb_matrix_indicators_keyboard(uint8_t active_laye
 // Per-layer HSV
 // ---------------------------------------------------------------------------
 
-static HSV jv_hsv_for_layer_id(uint8_t id) {
+HSV jv_hsv_for_layer_id(uint8_t id) {
     switch (id) {
         case JV_BASE:    return (HSV){HSV_WHITE};
         case JV_EXTRA:   return (HSV){HSV_RED};
@@ -167,7 +167,11 @@ static void jv_rebuild_cache(void) {
             keypos_t       key = {.row = r, .col = c};
             const uint8_t  sl  = layer_switch_get_layer(key);
             const uint16_t kc  = keymap_key_to_keycode(sl, key);
-            jv_led_cache[li]   = hsv_to_rgb(jv_hsv_for_key_in_context(al, sl, kc));
+            if (kc == KC_NO) {
+                jv_led_cache[li] = (rgb_t){0, 0, 0};
+                continue;
+            }
+            jv_led_cache[li] = hsv_to_rgb(jv_hsv_for_key_in_context(al, sl, kc));
         }
     }
 
@@ -212,16 +216,26 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
     const uint8_t val = 64;
 
+    // Per-channel correction multipliers: output = (cache * val * MULT) >> 16.
+    // WS2812 green is ~3× brighter than red/blue, so G should be ~1/3 of R.
+    // Blue sensitivity varies by LED batch — override in the board's config.h:
+    //   #define JV_RGB_CORRECT_R  80u
+    //   #define JV_RGB_CORRECT_G  27u
+    //   #define JV_RGB_CORRECT_B  80u
+#ifndef JV_RGB_CORRECT_R
+#define JV_RGB_CORRECT_R 80u
+#endif
+#ifndef JV_RGB_CORRECT_G
+#define JV_RGB_CORRECT_G 72u
+#endif
+#ifndef JV_RGB_CORRECT_B
+#define JV_RGB_CORRECT_B 640u
+#endif
     for (uint8_t i = h0; i < h1; i++) {
-        // WS2812 green is ~3× brighter than red/blue at equal drive current.
-        // Scale G by 85/256 ≈ 1/3 so R=G=B in the cache produces perceptual white.
         rgb_matrix_set_color(i,
-            (uint8_t)(((uint16_t)jv_led_cache[i].r * val * 80u) >> 16),
-            (uint8_t)(((uint32_t)jv_led_cache[i].g * val * 72u) >> 16),
-            (uint8_t)(((uint32_t)jv_led_cache[i].b * val * 640u) >> 16));
-            // (uint8_t)(((uint16_t)jv_led_cache[i].r * val) >> 8),
-            // (uint8_t)(((uint32_t)jv_led_cache[i].g * val * 85u) >> 16),
-            // (uint8_t)(((uint32_t)jv_led_cache[i].b * val * 768u) >> 16));
+            (uint8_t)(((uint32_t)jv_led_cache[i].r * val * JV_RGB_CORRECT_R) >> 16),
+            (uint8_t)(((uint32_t)jv_led_cache[i].g * val * JV_RGB_CORRECT_G) >> 16),
+            (uint8_t)(((uint32_t)jv_led_cache[i].b * val * JV_RGB_CORRECT_B) >> 16));
     }
 
     jv_rgb_matrix_indicators_keyboard(

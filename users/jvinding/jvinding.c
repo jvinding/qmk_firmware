@@ -62,7 +62,8 @@ const key_override_t *key_overrides[] = {
 
 void keyboard_post_init_keymap(void) {
 #ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_enable_noeeprom();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-    rgb_matrix_sethsv_noeeprom(HSV_OFF);
+    rgb_matrix_sethsv_noeeprom(HSV_WHITE);
 #endif
 }
