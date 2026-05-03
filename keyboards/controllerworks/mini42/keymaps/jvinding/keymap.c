@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //
 // process_caps_word runs after process_record_kb, so a key override fires too
 // late.  This hook intercepts at the keymap level before caps_word sees it.
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == CW_TOGG && record->event.pressed && (get_mods() & MOD_MASK_SHIFT)) {
         uint8_t saved = get_mods();
         clear_mods();
