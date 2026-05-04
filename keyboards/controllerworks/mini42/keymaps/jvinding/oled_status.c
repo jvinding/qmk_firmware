@@ -1,77 +1,75 @@
 #include QMK_KEYBOARD_H
 #include "jvinding.h"
-#include <stdio.h>
 
 #ifdef OLED_ENABLE
 
-// mini42.c::oled_init_kb handles rotation (master=0°, slave=180°) and does
+// mini42.c::oled_init_kb handles rotation (both halves at 90°) and does
 // not chain into oled_init_user, so this is intentionally a pass-through.
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
 // ---------------------------------------------------------------------------
-// Status board — rendered on the slave (left) half.
+// WPM-reactive cat animation — rendered on the master (right) half.
 //
-// All state used here is synced by the split transport:
-//   layer_state       SPLIT_LAYER_STATE_ENABLE  (keyboard.json)
-//   get_mods()        SPLIT_MODS_ENABLE         (keyboard.json)
-//   get_current_wpm() SPLIT_WPM_ENABLE           (config.h)
-//   timer_read32()    runs locally on each half
+// The right OLED is a 128x32 SSD1306 rotated 90°, giving a portrait layout
+// of 5 chars wide × 16 rows tall. The animation occupies rows 5-9 (centred).
+//
+// States:       idle  (WPM <  10) — cat sits, eyes blink
+//               walk  (WPM < 40)  — cat trots, legs alternate
+//               run   (WPM ≥ 40)  — cat sprints, legs spread wide
 // ---------------------------------------------------------------------------
 
-static void render_layer_line(void) {
-    uint8_t layer = get_highest_layer(layer_state | default_layer_state);
-    oled_write_ln_P(PSTR("LYR"), false);
-    if (layer < (JV_FUN + 1) && jv_layer_names[layer]) {
-        oled_write_ln(jv_layer_names[layer], false);
-    } else {
-        oled_write_ln_P(PSTR("?"), false);
+static void render_wpm_anim(void) {
+    static uint8_t  frame      = 0;
+    static uint32_t last_frame = 0;
+
+    if (timer_elapsed32(last_frame) > 200) {
+        last_frame = timer_read32();
+        frame ^= 1;
     }
-    oled_write_ln_P(PSTR(""), false);
-}
 
-static void render_mods_line(void) {
-    uint8_t m = get_mods();
-    char buf[5];
-    buf[0] = (m & MOD_MASK_SHIFT) ? 'S' : '.';
-    buf[1] = (m & MOD_MASK_GUI)   ? 'G' : '.';
-    buf[2] = (m & MOD_MASK_ALT)   ? 'A' : '.';
-    buf[3] = (m & MOD_MASK_CTRL)  ? 'C' : '.';
-    buf[4] = '\0';
-    oled_write_ln_P(PSTR("MOD"), false);
-    oled_write_ln(buf, false);
-    oled_write_ln_P(PSTR(""), false);
-}
+    uint8_t wpm = get_current_wpm();
+    oled_set_cursor(0, 5);
 
-static void render_wpm_line(void) {
-    char buf[8];
-    snprintf(buf, sizeof(buf), "%3u", get_current_wpm());
-    oled_write_ln_P(PSTR("WPM"), false);
-    oled_write_ln(buf, false);
-    oled_write_ln_P(PSTR(""), false);
-}
-
-static void render_uptime_line(void) {
-    uint32_t s = timer_read32() / 1000;
-    uint16_t h = (uint16_t)(s / 3600);
-    uint8_t  m = (uint8_t)((s % 3600) / 60);
-    char buf[8];
-    snprintf(buf, sizeof(buf), "%uh%02um", h, m);
-    oled_write_ln_P(PSTR("UP"), false);
-    oled_write_ln(buf, false);
-    oled_write_ln_P(PSTR(""), false);
+    if (wpm < 10) {
+        // Idle: sitting cat, eyes blink every other frame
+        oled_write_ln_P(PSTR("/\\_/\\"), false);
+        oled_write_ln_P(frame ? PSTR("(-,-)") : PSTR("(o.o)"), false);
+        oled_write_ln_P(PSTR("(_|_)"), false);
+        oled_write_ln_P(PSTR(" | | "), false);
+        oled_write_ln_P(PSTR(" m m "), false);
+    } else if (wpm < 40) {
+        // Walk: legs alternate between forward/back positions
+        oled_write_ln_P(PSTR("/\\_/\\"), false);
+        oled_write_ln_P(PSTR("(o.o)"), false);
+        oled_write_ln_P(PSTR("(_|_)"), false);
+        if (frame) {
+            oled_write_ln_P(PSTR("  |/ "), false);
+            oled_write_ln_P(PSTR("\\ |  "), false);
+        } else {
+            oled_write_ln_P(PSTR("/ |  "), false);
+            oled_write_ln_P(PSTR("  |\\ "), false);
+        }
+    } else {
+        // Run: legs fully spread, face alternates direction
+        oled_write_ln_P(PSTR("/\\_/\\"), false);
+        oled_write_ln_P(frame ? PSTR("(o.<)") : PSTR("(>.o)"), false);
+        oled_write_ln_P(PSTR(" =|= "), false);
+        if (frame) {
+            oled_write_ln_P(PSTR("\\ \\ \\"), false);
+        } else {
+            oled_write_ln_P(PSTR("/ / /"), false);
+        }
+        oled_write_ln_P(PSTR("     "), false);
+    }
 }
 
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-        jv_oled_draw_layer_caps();
+        render_wpm_anim();
     } else {
-        render_layer_line();
-        render_mods_line();
-        jv_oled_draw_caps_indicator();
-        render_wpm_line();
-        render_uptime_line();
+        jv_oled_render_status();
     }
     return false;
 }
