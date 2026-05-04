@@ -1,5 +1,42 @@
 #include QMK_KEYBOARD_H
 #include "jvinding.h"
+#ifdef SPLIT_KEYBOARD
+#    include "transactions.h"
+#endif
+
+// ---------------------------------------------------------------------------
+// Caps word split sync
+// ---------------------------------------------------------------------------
+
+void keyboard_post_init_keymap(void);
+
+bool jv_caps_word = false;
+
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
+static void jv_caps_word_sync_handler(uint8_t buflen, const void *data, uint8_t rbuflen, void *rdata) {
+    jv_caps_word = *(const bool *)data;
+}
+#endif
+
+void keyboard_post_init_user(void) {
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
+    transaction_register_rpc(JV_SYNC_CAPS_WORD, jv_caps_word_sync_handler);
+#endif
+    keyboard_post_init_keymap();
+}
+
+void housekeeping_task_user(void) {
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
+    if (is_keyboard_master()) {
+        static bool last_sent = false;
+        if (jv_caps_word != last_sent) {
+            if (transaction_rpc_send(JV_SYNC_CAPS_WORD, sizeof(jv_caps_word), &jv_caps_word)) {
+                last_sent = jv_caps_word;
+            }
+        }
+    }
+#endif
+}
 
 // ---------------------------------------------------------------------------
 // Tap dances
