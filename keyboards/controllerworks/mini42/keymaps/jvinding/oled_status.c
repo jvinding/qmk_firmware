@@ -35,9 +35,9 @@ static void render_mods_line(void) {
     uint8_t m = get_mods();
     char buf[5];
     buf[0] = (m & MOD_MASK_SHIFT) ? 'S' : '.';
-    buf[1] = (m & MOD_MASK_CTRL)  ? 'C' : '.';
+    buf[1] = (m & MOD_MASK_GUI)   ? 'G' : '.';
     buf[2] = (m & MOD_MASK_ALT)   ? 'A' : '.';
-    buf[3] = (m & MOD_MASK_GUI)   ? 'G' : '.';
+    buf[3] = (m & MOD_MASK_CTRL)  ? 'C' : '.';
     buf[4] = '\0';
     oled_write_ln_P(PSTR("MOD"), false);
     oled_write_ln(buf, false);
@@ -69,6 +69,7 @@ bool oled_task_user(void) {
     } else {
         render_layer_line();
         render_mods_line();
+        jv_oled_draw_caps_indicator();
         render_wpm_line();
         render_uptime_line();
     }

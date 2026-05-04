@@ -5,16 +5,12 @@
 #include "users/holykeebs/pointing.h"
 #endif
 
-#ifndef HK_MASTER_RIGHT
-static bool s_caps_word;
-#endif
-
 void caps_word_set_user(bool active) {
 #ifdef HK_MASTER_RIGHT
     g_hk_state.caps_word = active;
     g_hk_state.dirty     = true;
 #else
-    s_caps_word = active;
+    jv_caps_word = active;
 #endif
 }
 
@@ -34,6 +30,21 @@ const char * const jv_layer_names[] = {
     [JV_FUN]    = "Fun",
 };
 
+void jv_oled_draw_caps_indicator(void) {
+    led_t led = host_keyboard_led_state();
+#ifdef HK_MASTER_RIGHT
+    bool cw = g_hk_state.caps_word;
+#else
+    bool cw = jv_caps_word;
+#endif
+    if (cw) {
+        oled_write_ln_P(PSTR("CWRD"), false);
+    } else {
+        oled_write_ln_P(led.caps_lock ? PSTR("CAPS") : PSTR(""), false);
+    }
+    oled_write_ln_P(PSTR(""), false);
+}
+
 void jv_oled_draw_layer_caps(void) {
     uint8_t layer = get_highest_layer(layer_state | default_layer_state);
     oled_write_ln_P(PSTR("Layer"), false);
@@ -49,7 +60,7 @@ void jv_oled_draw_layer_caps(void) {
 #ifdef HK_MASTER_RIGHT
     oled_write_ln_P(g_hk_state.caps_word ? PSTR("CWRD") : PSTR("    "), false);
 #else
-    oled_write_ln_P(s_caps_word ? PSTR("CWRD") : PSTR("    "), false);
+    oled_write_ln_P(jv_caps_word ? PSTR("CWRD") : PSTR("    "), false);
 #endif
 }
 

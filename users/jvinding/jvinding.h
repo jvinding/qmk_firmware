@@ -1,6 +1,9 @@
 #pragma once
 #include "quantum.h"
 
+// Caps word display state — set on master by caps_word_set_user, synced to slave.
+extern bool jv_caps_word;
+
 // ---------------------------------------------------------------------------
 // Layer enum
 // ---------------------------------------------------------------------------
@@ -26,6 +29,7 @@ enum jv_layers {
 #ifdef OLED_ENABLE
 extern const char * const jv_layer_names[];
 void jv_oled_draw_layer_caps(void);
+void jv_oled_draw_caps_indicator(void);
 #endif
 
 // ---------------------------------------------------------------------------

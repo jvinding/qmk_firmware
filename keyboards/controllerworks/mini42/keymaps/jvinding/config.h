@@ -18,6 +18,9 @@
 #define SPLIT_WPM_ENABLE
 #define SPLIT_TRANSPORT_MIRROR
 
+// Custom RPC for caps word state (master → slave).
+#define SPLIT_TRANSACTION_IDS_USER JV_SYNC_CAPS_WORD
+
 // Reliable master detection on RP2040.  MASTER_RIGHT alone uses a one-shot
 // USB-bus check at early boot; the RP2040 USB driver often hasn't reached
 // USB_ACTIVE yet, so both halves latch as slave.  SPLIT_USB_DETECT polls
