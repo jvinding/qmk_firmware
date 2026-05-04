@@ -12,6 +12,10 @@ void keyboard_post_init_keymap(void);
 
 bool jv_caps_word = false;
 
+// holykeebs defines keyboard_post_init_user (calling keyboard_post_init_keymap) and
+// housekeeping_task_user itself — only define them here for non-holykeebs boards.
+#ifndef HK_MASTER_RIGHT
+
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_TRANSACTION_IDS_USER)
 static void jv_caps_word_sync_handler(uint8_t buflen, const void *data, uint8_t rbuflen, void *rdata) {
     jv_caps_word = *(const bool *)data;
@@ -35,8 +39,10 @@ void housekeeping_task_user(void) {
             }
         }
     }
-#endif
 }
+#endif
+
+#endif // HK_MASTER_RIGHT
 
 // ---------------------------------------------------------------------------
 // Tap dances

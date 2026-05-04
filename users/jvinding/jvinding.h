@@ -30,6 +30,7 @@ enum jv_layers {
 extern const char * const jv_layer_names[];
 void jv_oled_draw_layer_caps(void);
 void jv_oled_draw_caps_indicator(void);
+void jv_oled_render_status(void);
 #endif
 
 // ---------------------------------------------------------------------------
