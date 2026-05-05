@@ -34,12 +34,6 @@
 
 // RGB matrix tuning — mirrors crkbd/rev1_hk values; adjust after first flash.
 #ifdef RGB_MATRIX_ENABLE
-// Per-channel correction: output = (cache * 64 * MULT) >> 16.
-// mini42 LEDs have a normal blue channel; no boost needed (holykeebs uses 640).
-// Green is ~3× brighter per WS2812 spec, so scale it to ~1/3 of red.
-#define JV_RGB_CORRECT_R 80u
-#define JV_RGB_CORRECT_G 80u
-#define JV_RGB_CORRECT_B 80u
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_LED_PROCESS_LIMIT ((RGB_MATRIX_LED_COUNT + 4) / 5)
 #define RGB_MATRIX_LED_FLUSH_LIMIT   16
