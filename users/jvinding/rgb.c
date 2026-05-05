@@ -216,26 +216,41 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
     const uint8_t val = 64;
 
-    // Per-channel correction multipliers: output = (cache * val * MULT) >> 16.
-    // WS2812 green is ~3× brighter than red/blue, so G should be ~1/3 of R.
-    // Blue sensitivity varies by LED batch — override in the board's config.h:
-    //   #define JV_RGB_CORRECT_R  80u
-    //   #define JV_RGB_CORRECT_G  27u
-    //   #define JV_RGB_CORRECT_B  80u
-#ifndef JV_RGB_CORRECT_R
-#define JV_RGB_CORRECT_R 80u
+    // Per-channel correction: output = (cache * val * MULT) >> 16.
+    // 1024 = no correction. Split keyboards support independent left/right values.
+    // Override in the board's config.h, e.g.:
+    //   #define JV_RGB_CORRECT_LEFT_R   80u
+    //   #define JV_RGB_CORRECT_LEFT_G   72u
+    //   #define JV_RGB_CORRECT_LEFT_B  640u
+    //   #define JV_RGB_CORRECT_RIGHT_R  80u
+    //   #define JV_RGB_CORRECT_RIGHT_G  72u
+    //   #define JV_RGB_CORRECT_RIGHT_B 640u
+#ifndef JV_RGB_CORRECT_LEFT_R
+#define JV_RGB_CORRECT_LEFT_R 1024u
 #endif
-#ifndef JV_RGB_CORRECT_G
-#define JV_RGB_CORRECT_G 72u
+#ifndef JV_RGB_CORRECT_LEFT_G
+#define JV_RGB_CORRECT_LEFT_G 1024u
 #endif
-#ifndef JV_RGB_CORRECT_B
-#define JV_RGB_CORRECT_B 640u
+#ifndef JV_RGB_CORRECT_LEFT_B
+#define JV_RGB_CORRECT_LEFT_B 1024u
 #endif
+#ifndef JV_RGB_CORRECT_RIGHT_R
+#define JV_RGB_CORRECT_RIGHT_R 1024u
+#endif
+#ifndef JV_RGB_CORRECT_RIGHT_G
+#define JV_RGB_CORRECT_RIGHT_G 1024u
+#endif
+#ifndef JV_RGB_CORRECT_RIGHT_B
+#define JV_RGB_CORRECT_RIGHT_B 1024u
+#endif
+    const uint32_t cr = is_keyboard_left() ? JV_RGB_CORRECT_LEFT_R : JV_RGB_CORRECT_RIGHT_R;
+    const uint32_t cg = is_keyboard_left() ? JV_RGB_CORRECT_LEFT_G : JV_RGB_CORRECT_RIGHT_G;
+    const uint32_t cb = is_keyboard_left() ? JV_RGB_CORRECT_LEFT_B : JV_RGB_CORRECT_RIGHT_B;
     for (uint8_t i = h0; i < h1; i++) {
         rgb_matrix_set_color(i,
-            (uint8_t)(((uint32_t)jv_led_cache[i].r * val * JV_RGB_CORRECT_R) >> 16),
-            (uint8_t)(((uint32_t)jv_led_cache[i].g * val * JV_RGB_CORRECT_G) >> 16),
-            (uint8_t)(((uint32_t)jv_led_cache[i].b * val * JV_RGB_CORRECT_B) >> 16));
+            (uint8_t)(((uint32_t)jv_led_cache[i].r * val * cr) >> 16),
+            (uint8_t)(((uint32_t)jv_led_cache[i].g * val * cg) >> 16),
+            (uint8_t)(((uint32_t)jv_led_cache[i].b * val * cb) >> 16));
     }
 
     jv_rgb_matrix_indicators_keyboard(

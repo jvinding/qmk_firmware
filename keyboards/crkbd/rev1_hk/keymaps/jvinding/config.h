@@ -22,6 +22,18 @@
 
 // RGB matrix tuning
 #ifdef RGB_MATRIX_ENABLE
+// Per-channel color correction for HolyKeebs CRKBD LEDs.
+// Formula: output = (cache * 64 * MULT) >> 16; 1024 = no correction.
+// Tune left/right independently to compensate for LED variance between halves.
+// #define JV_RGB_CORRECT_LEFT_R   40u
+// #define JV_RGB_CORRECT_LEFT_G   60u
+// #define JV_RGB_CORRECT_LEFT_B  1024u
+#define JV_RGB_CORRECT_LEFT_R   40u
+#define JV_RGB_CORRECT_LEFT_G   40u
+#define JV_RGB_CORRECT_LEFT_B  640u
+#define JV_RGB_CORRECT_RIGHT_R  80u
+#define JV_RGB_CORRECT_RIGHT_G  72u
+#define JV_RGB_CORRECT_RIGHT_B 600u
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_LED_PROCESS_LIMIT ((RGB_MATRIX_LED_COUNT + 4) / 5)
 #define RGB_MATRIX_LED_FLUSH_LIMIT   16
