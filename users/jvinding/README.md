@@ -49,6 +49,23 @@ Per-keyboard `rules.mk` at `keyboards/.../keymaps/jvinding/` is what the build s
   - Left OLED: live status board — layer, modifiers, WPM, uptime.
   - RGB brightness cap starts at `120`; lower `RGB_MATRIX_MAXIMUM_BRIGHTNESS` in `config.h` if the board browns out.
 
+### ControllerWorks City42 — `controllerworks/city42`
+
+- **Board path:** `controllerworks/city42`
+- **Compile**
+  - `qmk compile -kb controllerworks/city42 -km jvinding`
+- **Output**
+  - `.build/controllerworks_city42_jvinding.uf2`
+- **Flash**
+  - Hold upper-left key while plugging in USB (bootmagic), or double-tap the RST button; copy the `.uf2` to the `RPI-RP2` drive that mounts.
+  - **Unibody:** single MCU — only one half to flash.
+- **Notes**
+  - Unibody (single RP2040, no split).
+  - 40 mm Cirque trackpad (SPI, relative mode): cursor + tap-to-click + two-finger right-click work out of the box with no keymap code.
+  - Outer pinky columns carry `MS_BTN1/2` and scroll wheel keys (same as crkbd).
+  - No OLED.
+  - RGB brightness cap starts at `120`; all 42 LEDs are per-key (no underglow).
+
 ---
 
 Add a new **”### Name — path”** subsection for each future keyboard so the list stays a single place to look.
