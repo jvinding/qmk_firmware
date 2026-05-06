@@ -102,11 +102,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+#ifdef OLED_ENABLE
+void keystats_record_press(uint16_t keycode, keyrecord_t *record);
+#endif
+
 // Shift + CW_TOGG → KC_CAPS.
 //
 // process_caps_word runs after process_record_kb, so a key override fires too
 // late.  This hook intercepts at the keymap level before caps_word sees it.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef OLED_ENABLE
+    keystats_record_press(keycode, record);
+#endif
     if (keycode == CW_TOGG && record->event.pressed) {
         if (get_mods() & MOD_MASK_SHIFT) {
             uint8_t saved = get_mods();
