@@ -214,17 +214,20 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     const uint8_t h1 = (uint8_t)RGB_MATRIX_LED_COUNT;
 #endif
 
-    const uint8_t val = 64;
-
-    // Per-channel correction: output = (cache * val * MULT) >> 16.
-    // 1024 = no correction. Split keyboards support independent left/right values.
+    // Per-channel correction: output = (cache * BRIGHTNESS * MULT) >> 16.
+    // BRIGHTNESS: 64 = full brightness, 32 = half, 16 = quarter. Values above 64 clip.
+    // CORRECTION: 1024 = no correction. Split keyboards support independent left/right values.
     // Override in the board's config.h, e.g.:
+    //   #define JV_RGB_BRIGHTNESS       48u
     //   #define JV_RGB_CORRECT_LEFT_R   80u
     //   #define JV_RGB_CORRECT_LEFT_G   72u
     //   #define JV_RGB_CORRECT_LEFT_B  640u
     //   #define JV_RGB_CORRECT_RIGHT_R  80u
     //   #define JV_RGB_CORRECT_RIGHT_G  72u
     //   #define JV_RGB_CORRECT_RIGHT_B 640u
+#ifndef JV_RGB_BRIGHTNESS
+#define JV_RGB_BRIGHTNESS 64u
+#endif
 #ifndef JV_RGB_CORRECT_LEFT_R
 #define JV_RGB_CORRECT_LEFT_R 1024u
 #endif
@@ -248,9 +251,9 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     const uint32_t cb = is_keyboard_left() ? JV_RGB_CORRECT_LEFT_B : JV_RGB_CORRECT_RIGHT_B;
     for (uint8_t i = h0; i < h1; i++) {
         rgb_matrix_set_color(i,
-            (uint8_t)(((uint32_t)jv_led_cache[i].r * val * cr) >> 16),
-            (uint8_t)(((uint32_t)jv_led_cache[i].g * val * cg) >> 16),
-            (uint8_t)(((uint32_t)jv_led_cache[i].b * val * cb) >> 16));
+            (uint8_t)(((uint32_t)jv_led_cache[i].r * JV_RGB_BRIGHTNESS * cr) >> 16),
+            (uint8_t)(((uint32_t)jv_led_cache[i].g * JV_RGB_BRIGHTNESS * cg) >> 16),
+            (uint8_t)(((uint32_t)jv_led_cache[i].b * JV_RGB_BRIGHTNESS * cb) >> 16));
     }
 
     jv_rgb_matrix_indicators_keyboard(

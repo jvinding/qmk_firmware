@@ -34,6 +34,7 @@
 
 // RGB matrix tuning — mirrors crkbd/rev1_hk values; adjust after first flash.
 #ifdef RGB_MATRIX_ENABLE
+#define JV_RGB_BRIGHTNESS 32u
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_LED_PROCESS_LIMIT ((RGB_MATRIX_LED_COUNT + 4) / 5)
 #define RGB_MATRIX_LED_FLUSH_LIMIT   16
