@@ -66,6 +66,25 @@ Per-keyboard `rules.mk` at `keyboards/.../keymaps/jvinding/` is what the build s
   - No OLED.
   - RGB brightness cap starts at `120`; all 42 LEDs are per-key (no underglow).
 
+### KeyboardHoarders Sofle Choc RGB Trackpad — `keyboardhoarders/sofle_choc_rgb_trackpad`
+
+- **Board path:** `keyboardhoarders/sofle_choc_rgb_trackpad`
+- **Compile**
+  - `qmk compile -kb keyboardhoarders/sofle_choc_rgb_trackpad -km jvinding`
+- **Output**
+  - `.build/keyboardhoarders_sofle_choc_rgb_trackpad_jvinding.uf2`
+- **Flash**
+  - Unplug, double-tap the reset button to enter bootloader, plug in USB; copy the `.uf2` to the `RPI-RP2` drive that mounts.
+  - **Split:** flash the same `.uf2` to **both** halves.
+- **Notes**
+  - RP2040 ProMicro (SparkFun). MCU is **not** the same as the vendor's stock `keyboards/sofle_choc/` directory, which is AVR — do not mix configs.
+  - 60-key split (6 cols × 5 rows per half + encoder press), rotary encoder on each half.
+  - Azoteq IQS5XX trackpad on the **right** half (I2C, `POINTING_DEVICE_RIGHT`). Left half OLED also on I2C — both share GP2/GP3.
+  - Left OLED: live status (layer, mods, Caps/Caps Word, WPM, uptime) via `jv_oled_render_status()`.
+  - RGB: per-key colors follow `jv_hsv_for_layer_id`; gaming-layer WASD/arrow/numpad/F-key accents applied via `sofle_choc_rgb_trackpad.c`.
+  - `JV_GAME` / `JV_GAME_FN` layers toggle via the bottom-right thumb key (`TG(JV_GAME)`) on every normal layer.
+  - Master = **left** half (USB-connected side).
+
 ---
 
 Add a new **”### Name — path”** subsection for each future keyboard so the list stays a single place to look.
