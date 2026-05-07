@@ -1,0 +1,7 @@
+SERIAL_DRIVER      = vendor
+
+OLED_DRIVER        = ssd1306
+ENCODER_MAP_ENABLE = yes
+
+POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = azoteq_iqs5xx

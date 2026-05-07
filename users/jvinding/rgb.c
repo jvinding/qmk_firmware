@@ -28,6 +28,8 @@ HSV jv_hsv_for_layer_id(uint8_t id) {
         case JV_NUMPAD:  return (HSV){HSV_TEAL};
         case JV_SYM:     return (HSV){HSV_GREEN};
         case JV_FUN:     return (HSV){HSV_ORANGE};
+        case JV_GAME:    return (HSV){HSV_GOLD};
+        case JV_GAME_FN: return (HSV){HSV_CHARTREUSE};
         default:         return (HSV){HSV_WHITE};
     }
 }
@@ -83,7 +85,7 @@ static HSV jv_hsv_for_key_in_context(uint8_t global_layer, uint8_t per_key_layer
     // Layer-switching keys → target layer color
     int8_t t = jv_layer_key_target_id(kc);
     if (t >= 0) {
-        return jv_hsv_for_layer_id(t <= (int8_t)JV_FUN ? (uint8_t)t : global_layer);
+        return jv_hsv_for_layer_id((uint8_t)t);
     }
 
     // Tap-dance → target layer color (if it has one)
@@ -114,6 +116,22 @@ static HSV jv_hsv_for_key_in_context(uint8_t global_layer, uint8_t per_key_layer
     // Mouse buttons and scroll → mouse layer color (yellow), regardless of active layer
     if (jv_is_mouse_button_or_scroll(kc) || jv_is_mouse_button_or_scroll(inner))
         return jv_hsv_for_layer_id(JV_MOUSE);
+
+    // Gaming layer accents
+    if (global_layer == JV_GAME) {
+        if (inner == KC_W || inner == KC_A || inner == KC_S || inner == KC_D)
+            return (HSV){HSV_RED};
+    }
+    if (global_layer == JV_GAME_FN) {
+        if (inner == KC_UP || inner == KC_DOWN || inner == KC_LEFT || inner == KC_RGHT)
+            return (HSV){HSV_RED};
+        if (inner == KC_PGUP || inner == KC_PGDN || inner == KC_HOME || inner == KC_END || inner == KC_INS)
+            return jv_hsv_for_layer_id(JV_NAV);
+        if ((inner >= KC_NUM_LOCK && inner <= KC_KP_DOT) || inner == KC_KP_EQUAL)
+            return jv_hsv_for_layer_id(JV_NUMPAD);
+        if (inner >= KC_F1 && inner <= KC_F12)
+            return jv_hsv_for_layer_id(JV_FUN);
+    }
 
     return jv_hsv_for_layer_id(per_key_layer);
 }

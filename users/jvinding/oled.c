@@ -18,17 +18,19 @@ void caps_word_set_user(bool active) {
 #ifdef OLED_ENABLE
 
 const char * const jv_layer_names[] = {
-    [JV_BASE]   = "Base",
-    [JV_EXTRA]  = "Extra",
-    [JV_TAP]    = "Tap",
-    [JV_BUTTON] = "Btn",
-    [JV_NAV]    = "Nav",
-    [JV_MOUSE]  = "Mouse",
-    [JV_MEDIA]  = "Media",
-    [JV_NUM]    = "Num",
-    [JV_NUMPAD] = "NPad",
-    [JV_SYM]    = "Sym",
-    [JV_FUN]    = "Fun",
+    [JV_BASE]    = "Base",
+    [JV_EXTRA]   = "Extra",
+    [JV_TAP]     = "Tap",
+    [JV_BUTTON]  = "Btn",
+    [JV_NAV]     = "Nav",
+    [JV_MOUSE]   = "Mouse",
+    [JV_MEDIA]   = "Media",
+    [JV_NUM]     = "Num",
+    [JV_NUMPAD]  = "NPad",
+    [JV_SYM]     = "Sym",
+    [JV_FUN]     = "Fun",
+    [JV_GAME]    = "Game",
+    [JV_GAME_FN] = "GmFn",
 };
 
 void jv_oled_draw_caps_indicator(void) {
