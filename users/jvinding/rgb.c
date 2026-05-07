@@ -12,25 +12,42 @@ extern const uint8_t k_rgb_matrix_split[2];
 __attribute__((weak)) void jv_rgb_matrix_indicators_keyboard(uint8_t active_layer, uint8_t led_min, uint8_t led_max) {}
 
 // ---------------------------------------------------------------------------
+// Catppuccin Latte palette — V normalised to 255 (global brightness via JV_RGB_BRIGHTNESS)
+// ---------------------------------------------------------------------------
+
+#define JV_C_ROSEWATER ((HSV){  8, 116, 255})
+#define JV_C_PINK      ((HSV){224, 126, 255})
+#define JV_C_MAUVE     ((HSV){188, 194, 255})
+#define JV_C_RED       ((HSV){246, 237, 255})
+#define JV_C_PEACH     ((HSV){ 16, 244, 255})
+#define JV_C_YELLOW    ((HSV){ 25, 222, 255})
+#define JV_C_GREEN     ((HSV){ 77, 186, 255})
+#define JV_C_TEAL      ((HSV){130, 217, 255})
+#define JV_C_SKY       ((HSV){140, 250, 255})
+#define JV_C_SAPPHIRE  ((HSV){134, 210, 255})
+#define JV_C_BLUE      ((HSV){156, 224, 255})
+#define JV_C_LAVENDER  ((HSV){164, 140, 255})
+
+// ---------------------------------------------------------------------------
 // Per-layer HSV
 // ---------------------------------------------------------------------------
 
 HSV jv_hsv_for_layer_id(uint8_t id) {
     switch (id) {
-        case JV_BASE:    return (HSV){HSV_WHITE};
-        case JV_EXTRA:   return (HSV){HSV_RED};
-        case JV_TAP:     return (HSV){HSV_SPRINGGREEN};
-        case JV_BUTTON:  return (HSV){HSV_PINK};
-        case JV_NAV:     return (HSV){HSV_CYAN};
-        case JV_MOUSE:   return (HSV){HSV_YELLOW};
-        case JV_MEDIA:   return (HSV){HSV_PURPLE};
-        case JV_NUM:     return (HSV){HSV_BLUE};
-        case JV_NUMPAD:  return (HSV){HSV_TEAL};
-        case JV_SYM:     return (HSV){HSV_GREEN};
-        case JV_FUN:     return (HSV){HSV_ORANGE};
-        case JV_GAME:    return (HSV){HSV_GOLD};
-        case JV_GAME_FN: return (HSV){HSV_CHARTREUSE};
-        default:         return (HSV){HSV_WHITE};
+        case JV_BASE:    return JV_C_LAVENDER;   // pastel blue-purple, easy on eyes
+        case JV_EXTRA:   return JV_C_PINK;
+        case JV_TAP:     return JV_C_ROSEWATER;
+        case JV_BUTTON:  return JV_C_SAPPHIRE;
+        case JV_NAV:     return JV_C_SKY;
+        case JV_MOUSE:   return JV_C_YELLOW;
+        case JV_MEDIA:   return JV_C_GREEN;
+        case JV_NUM:     return JV_C_BLUE;
+        case JV_NUMPAD:  return JV_C_MAUVE;      // same hue as GAME; they never coexist
+        case JV_SYM:     return JV_C_TEAL;
+        case JV_FUN:     return JV_C_PEACH;
+        case JV_GAME:    return JV_C_MAUVE;      // soft purple, easy on eyes
+        case JV_GAME_FN: return JV_C_LAVENDER;   // same hue as BASE; they never coexist
+        default:         return JV_C_LAVENDER;
     }
 }
 
@@ -102,15 +119,15 @@ static HSV jv_hsv_for_key_in_context(uint8_t global_layer, uint8_t per_key_layer
     // Directional accents → red
     if (global_layer == JV_NAV) {
         if (inner == KC_UP || inner == KC_DOWN || inner == KC_LEFT || inner == KC_RGHT)
-            return (HSV){HSV_RED};
+            return JV_C_RED;
     }
     if (global_layer == JV_MOUSE) {
         if (jv_is_cursor_move(kc) || jv_is_cursor_move(inner))
-            return (HSV){HSV_RED};
+            return JV_C_RED;
     }
     if (global_layer == JV_MEDIA) {
         if (inner == KC_VOLU || inner == KC_VOLD || inner == KC_MNXT || inner == KC_MPRV)
-            return (HSV){HSV_RED};
+            return JV_C_RED;
     }
 
     // Mouse buttons and scroll → mouse layer color (yellow), regardless of active layer
@@ -120,11 +137,11 @@ static HSV jv_hsv_for_key_in_context(uint8_t global_layer, uint8_t per_key_layer
     // Gaming layer accents
     if (global_layer == JV_GAME) {
         if (inner == KC_W || inner == KC_A || inner == KC_S || inner == KC_D)
-            return (HSV){HSV_RED};
+            return JV_C_RED;
     }
     if (global_layer == JV_GAME_FN) {
         if (inner == KC_UP || inner == KC_DOWN || inner == KC_LEFT || inner == KC_RGHT)
-            return (HSV){HSV_RED};
+            return JV_C_RED;
         if (inner == KC_PGUP || inner == KC_PGDN || inner == KC_HOME || inner == KC_END || inner == KC_INS)
             return jv_hsv_for_layer_id(JV_NAV);
         if ((inner >= KC_NUM_LOCK && inner <= KC_KP_DOT) || inner == KC_KP_EQUAL)
