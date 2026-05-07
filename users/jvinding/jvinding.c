@@ -39,8 +39,8 @@ void housekeeping_task_user(void) {
             }
         }
     }
-}
 #endif
+}
 
 #endif // HK_MASTER_RIGHT
 
