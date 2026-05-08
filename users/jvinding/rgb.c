@@ -35,8 +35,8 @@ __attribute__((weak)) void jv_rgb_matrix_indicators_keyboard(uint8_t active_laye
 HSV jv_hsv_for_layer_id(uint8_t id) {
     switch (id) {
         case JV_BASE:    return JV_C_LAVENDER;   // pastel blue-purple, easy on eyes
-        case JV_EXTRA:   return JV_C_PINK;
-        case JV_TAP:     return JV_C_ROSEWATER;
+        case JV_QWERTY:   return JV_C_PINK;
+        case JV_WINDOWS:     return JV_C_ROSEWATER;
         case JV_BUTTON:  return JV_C_SAPPHIRE;
         case JV_NAV:     return JV_C_SKY;
         case JV_MOUSE:   return JV_C_YELLOW;
@@ -54,7 +54,7 @@ HSV jv_hsv_for_layer_id(uint8_t id) {
 // TD index → target layer (0xFF = no layer target)
 static const uint8_t jv_td_target_layer[12] = {
     0xFF,        // JV_TD_BOOT
-    JV_BASE, JV_EXTRA, JV_TAP, JV_BUTTON,
+    JV_BASE, JV_QWERTY, JV_WINDOWS, JV_BUTTON,
     JV_NAV, JV_MOUSE, JV_MEDIA, JV_NUM, JV_NUMPAD, JV_SYM, JV_FUN
 };
 
@@ -76,8 +76,8 @@ static int8_t jv_layer_key_target_id(uint16_t kc) {
 }
 
 static uint16_t jv_semantic_inner_keycode(uint16_t kc) {
-    if (IS_QK_MOD_TAP(kc))  return QK_MOD_TAP_GET_TAP_KEYCODE(kc);
-    if (IS_QK_MODS(kc))     return QK_MODS_GET_BASIC_KEYCODE(kc);
+    if (IS_QK_MOD_TAP(kc))   return QK_MOD_TAP_GET_TAP_KEYCODE(kc);
+    if (IS_QK_MODS(kc))      return QK_MODS_GET_BASIC_KEYCODE(kc);
     if (IS_QK_LAYER_TAP(kc)) return QK_LAYER_TAP_GET_TAP_KEYCODE(kc);
     return kc;
 }

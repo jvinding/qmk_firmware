@@ -19,8 +19,8 @@ void caps_word_set_user(bool active) {
 
 const char * const jv_layer_names[] = {
     [JV_BASE]    = "Base",
-    [JV_EXTRA]   = "Extra",
-    [JV_TAP]     = "Tap",
+    [JV_QWERTY]  = "QWER",
+    [JV_WINDOWS] = "Win",
     [JV_BUTTON]  = "Btn",
     [JV_NAV]     = "Nav",
     [JV_MOUSE]   = "Mouse",
