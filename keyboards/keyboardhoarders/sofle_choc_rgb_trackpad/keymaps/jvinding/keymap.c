@@ -31,8 +31,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,   KC_NO,               LT(JV_FUN,KC_DEL),  LT(JV_NUM,KC_BSPC), LT(JV_SYM,KC_ENT),   LT(JV_MOUSE,KC_TAB), LT(JV_NAV,KC_SPC), LT(JV_MEDIA,KC_ESC), KC_NO, TG(JV_GAME)
 ),
 
-// ── EXTRA (QWERTY-DH) ──────────────────────────────────────────────────────
-[JV_EXTRA] = LAYOUT(
+// ── QWERTY ──────────────────────────────────────────────────────
+[JV_QWERTY] = LAYOUT(
   KC_NO,   KC_NO,               KC_NO,          KC_NO,           KC_NO,           KC_NO,           KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
   MS_WHLU, KC_Q,                KC_W,           KC_E,            KC_R,            KC_T,            KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           MS_WHLL,
   MS_BTN1, LCTL_T(KC_A),        LALT_T(KC_S),   LGUI_T(KC_D),    LSFT_T(KC_F),    HYPR_T(KC_G),    HYPR_T(KC_H),   RSFT_T(KC_J),   RGUI_T(KC_K),   RALT_T(KC_L),   RCTL_T(KC_QUOT),MS_BTN2,
@@ -40,8 +40,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,   KC_NO,               LT(JV_FUN,KC_DEL),  LT(JV_NUM,KC_BSPC), LT(JV_SYM,KC_ENT),   LT(JV_MOUSE,KC_TAB), LT(JV_NAV,KC_SPC), LT(JV_MEDIA,KC_ESC), KC_NO, TG(JV_GAME)
 ),
 
-// ── TAP (reduced home-row mods) ────────────────────────────────────────────
-[JV_TAP] = LAYOUT(
+// ── WINDOWS ────────────────────────────────────────────
+[JV_WINDOWS] = LAYOUT(
   KC_NO,   KC_NO,               KC_NO,          KC_NO,           KC_NO,           KC_NO,           KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
   MS_WHLU, KC_TRNS,             KC_TRNS,        KC_TRNS,         KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        MS_WHLL,
   MS_BTN1, LGUI_T(KC_A),        KC_TRNS,        LCTL_T(KC_S),    KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,        RCTL_T(KC_E),   KC_TRNS,        RGUI_T(KC_O),   MS_BTN2,
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ── NAV (inverted-T) ───────────────────────────────────────────────────────
 [JV_NAV] = LAYOUT(
   KC_NO,   KC_NO,               KC_NO,          KC_NO,           KC_NO,           KC_NO,           KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-  KC_TRNS, KC_PGUP,             KC_HOME,        KC_UP,           KC_END,          KC_INS,          JV_NA,          TD(JV_TD_BASE), TD(JV_TD_EXTRA),TD(JV_TD_TAP),  TD(JV_TD_BOOT), KC_TRNS,
+  KC_TRNS, KC_PGUP,             KC_HOME,        KC_UP,           KC_END,          KC_INS,          JV_NA,          TD(JV_TD_BASE), TD(JV_TD_QWERTY),TD(JV_TD_WINDOWS),  TD(JV_TD_BOOT), KC_TRNS,
   KC_TRNS, KC_PGDN,             KC_LEFT,        KC_DOWN,         KC_RGHT,         CW_TOGG,         KC_HYPR,        KC_RSFT,        KC_RGUI,        KC_RALT,        KC_RCTL,        KC_TRNS,
   KC_TRNS, JV_UND,              JV_CUT,         JV_CPY,          JV_PST,          JV_RDO,          KC_TRNS, KC_TRNS,  JV_NA,         TD(JV_TD_NAV),  TD(JV_TD_NUM),  JV_NA,          JV_NA,          KC_TRNS,
   KC_NO,   KC_NO,               KC_DEL,         KC_BSPC,         KC_ENT,          JV_NA,           JV_NA,          JV_NA,          KC_NO,          TG(JV_GAME)
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ── MOUSE ──────────────────────────────────────────────────────────────────
 [JV_MOUSE] = LAYOUT(
   KC_NO,   KC_NO,               KC_NO,          KC_NO,           KC_NO,           KC_NO,           KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-  KC_TRNS, MS_WHLU,             MS_WHLL,        MS_UP,           MS_WHLR,         JV_NU,           JV_NA,          TD(JV_TD_BASE), TD(JV_TD_EXTRA),TD(JV_TD_TAP),  TD(JV_TD_BOOT), KC_TRNS,
+  KC_TRNS, MS_WHLU,             MS_WHLL,        MS_UP,           MS_WHLR,         JV_NU,           JV_NA,          TD(JV_TD_BASE), TD(JV_TD_QWERTY),TD(JV_TD_WINDOWS),  TD(JV_TD_BOOT), KC_TRNS,
   KC_TRNS, MS_WHLD,             MS_LEFT,        MS_DOWN,         MS_RGHT,         JV_NU,           KC_HYPR,        KC_RSFT,        KC_RGUI,        KC_RALT,        KC_RCTL,        KC_TRNS,
   KC_TRNS, JV_UND,              JV_CUT,         JV_CPY,          JV_PST,          JV_RDO,          KC_TRNS, KC_TRNS,  JV_NA,         TD(JV_TD_MOUSE),TD(JV_TD_SYM),  JV_NA,          JV_NA,          KC_TRNS,
   KC_NO,   KC_NO,               MS_BTN3,        MS_BTN1,         MS_BTN2,         JV_NA,           JV_NA,          JV_NA,          KC_NO,          TG(JV_GAME)
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ── MEDIA ──────────────────────────────────────────────────────────────────
 [JV_MEDIA] = LAYOUT(
   KC_NO,   KC_NO,               KC_NO,          KC_NO,           KC_NO,           KC_NO,           KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-  KC_TRNS, UG_HUEU,             UG_SATU,        KC_VOLU,         UG_VALU,         UG_TOGG,         JV_NA,          TD(JV_TD_BASE), TD(JV_TD_EXTRA),TD(JV_TD_TAP),  TD(JV_TD_BOOT), KC_TRNS,
+  KC_TRNS, UG_HUEU,             UG_SATU,        KC_VOLU,         UG_VALU,         UG_TOGG,         JV_NA,          TD(JV_TD_BASE), TD(JV_TD_QWERTY),TD(JV_TD_WINDOWS),  TD(JV_TD_BOOT), KC_TRNS,
   KC_TRNS, UG_NEXT,             KC_MPRV,        KC_VOLD,         KC_MNXT,         UG_NEXT,         KC_HYPR,        KC_RSFT,        KC_RGUI,        KC_RALT,        KC_RCTL,        KC_TRNS,
   KC_TRNS, JV_NU,               JV_NU,          JV_NU,           JV_NU,           RGB_M_T,         KC_TRNS, KC_TRNS,  JV_NA,         TD(JV_TD_MEDIA),TD(JV_TD_FUN),  JV_NA,          JV_NA,          KC_TRNS,
   KC_NO,   KC_NO,               KC_MUTE,        KC_MPLY,         KC_MSTP,         JV_NA,           JV_NA,          JV_NA,          KC_NO,          TG(JV_GAME)
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ── NUM ────────────────────────────────────────────────────────────────────
 [JV_NUM] = LAYOUT(
   KC_NO,   KC_NO,               KC_NO,          KC_NO,           KC_NO,           KC_NO,           KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-  KC_TRNS, TD(JV_TD_BOOT),      TD(JV_TD_TAP),  TD(JV_TD_EXTRA), TD(JV_TD_BASE),  MO(JV_NUMPAD),   KC_LBRC,        KC_7,           KC_8,           KC_9,           KC_RBRC,        KC_TRNS,
+  KC_TRNS, TD(JV_TD_BOOT),      TD(JV_TD_WINDOWS),  TD(JV_TD_QWERTY), TD(JV_TD_BASE),  MO(JV_NUMPAD),   KC_LBRC,        KC_7,           KC_8,           KC_9,           KC_RBRC,        KC_TRNS,
   KC_TRNS, KC_LCTL,             KC_LALT,        KC_LGUI,         KC_LSFT,         KC_HYPR,         KC_EQL,         KC_4,           KC_5,           KC_6,           KC_SCLN,        KC_TRNS,
   KC_TRNS, JV_NA,               JV_NU,          TD(JV_TD_NAV),   TD(JV_TD_NUM),   JV_NA,           KC_TRNS, KC_TRNS,  KC_BSLS,       KC_1,           KC_2,           KC_3,           KC_GRV,         KC_TRNS,
   KC_NO,   KC_NO,               JV_NA,          JV_NA,           JV_NA,           KC_MINS,         KC_0,           KC_DOT,         KC_NO,          TG(JV_GAME)
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ── NUMPAD ─────────────────────────────────────────────────────────────────
 [JV_NUMPAD] = LAYOUT(
   KC_NO,   KC_NO,               KC_NO,          KC_NO,           KC_NO,           KC_NO,           KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-  KC_TRNS, TD(JV_TD_BOOT),      TD(JV_TD_TAP),  TD(JV_TD_EXTRA), TD(JV_TD_BASE),  JV_NA,           KC_KP_SLASH,    KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_MINUS,    KC_TRNS,
+  KC_TRNS, TD(JV_TD_BOOT),      TD(JV_TD_WINDOWS),  TD(JV_TD_QWERTY), TD(JV_TD_BASE),  JV_NA,           KC_KP_SLASH,    KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_MINUS,    KC_TRNS,
   KC_TRNS, KC_LCTL,             KC_LALT,        KC_LGUI,         KC_LSFT,         KC_HYPR,         KC_KP_ASTERISK, KC_KP_4,        KC_KP_5,        KC_KP_6,        KC_KP_PLUS,     KC_TRNS,
   KC_TRNS, JV_NA,               JV_NU,          TD(JV_TD_NAV),   TD(JV_TD_NUM),   JV_NA,           KC_TRNS, KC_TRNS,  KC_KP_ENTER,   KC_KP_1,        KC_KP_2,        KC_KP_3,        KC_KP_EQUAL,    KC_TRNS,
   KC_NO,   KC_NO,               JV_NA,          JV_NA,           JV_NA,           KC_BSPC,         KC_KP_0,        KC_KP_DOT,      KC_NO,          TG(JV_GAME)
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ── SYM ────────────────────────────────────────────────────────────────────
 [JV_SYM] = LAYOUT(
   KC_NO,   KC_NO,               KC_NO,          KC_NO,           KC_NO,           KC_NO,           KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-  KC_TRNS, TD(JV_TD_BOOT),      TD(JV_TD_TAP),  TD(JV_TD_EXTRA), TD(JV_TD_BASE),  JV_NA,           KC_LCBR,        KC_AMPR,        KC_ASTR,        KC_LPRN,        KC_RCBR,        KC_TRNS,
+  KC_TRNS, TD(JV_TD_BOOT),      TD(JV_TD_WINDOWS),  TD(JV_TD_QWERTY), TD(JV_TD_BASE),  JV_NA,           KC_LCBR,        KC_AMPR,        KC_ASTR,        KC_LPRN,        KC_RCBR,        KC_TRNS,
   KC_TRNS, KC_LCTL,             KC_LALT,        KC_LGUI,         KC_LSFT,         KC_HYPR,         KC_PLUS,        KC_DLR,         KC_PERC,        KC_CIRC,        KC_COLN,        KC_TRNS,
   KC_TRNS, JV_NA,               JV_NA,          TD(JV_TD_MOUSE), TD(JV_TD_SYM),   JV_NA,           KC_TRNS, KC_TRNS,  KC_PIPE,       KC_EXLM,        KC_AT,          KC_HASH,        KC_TILD,        KC_TRNS,
   KC_NO,   KC_NO,               JV_NA,          JV_NA,           JV_NA,           KC_UNDS,         KC_LPRN,        KC_RPRN,        KC_NO,          TG(JV_GAME)
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ── FUN ────────────────────────────────────────────────────────────────────
 [JV_FUN] = LAYOUT(
   KC_NO,   KC_NO,               KC_NO,          KC_NO,           KC_NO,           KC_NO,           KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-  KC_TRNS, TD(JV_TD_BOOT),      TD(JV_TD_TAP),  TD(JV_TD_EXTRA), TD(JV_TD_BASE),  JV_NA,           KC_PSCR,        KC_F7,          KC_F8,          KC_F9,          KC_F12,         KC_TRNS,
+  KC_TRNS, TD(JV_TD_BOOT),      TD(JV_TD_WINDOWS),  TD(JV_TD_QWERTY), TD(JV_TD_BASE),  JV_NA,           KC_PSCR,        KC_F7,          KC_F8,          KC_F9,          KC_F12,         KC_TRNS,
   KC_TRNS, KC_LCTL,             KC_LALT,        KC_LGUI,         KC_LSFT,         KC_HYPR,         KC_SCRL,        KC_F4,          KC_F5,          KC_F6,          KC_F11,         KC_TRNS,
   KC_TRNS, JV_NA,               JV_NA,          TD(JV_TD_MEDIA), TD(JV_TD_FUN),   JV_NA,           KC_TRNS, KC_TRNS,  KC_PAUS,       KC_F1,          KC_F2,          KC_F3,          KC_F10,         KC_TRNS,
   KC_NO,   KC_NO,               JV_NA,          JV_NA,           JV_NA,           KC_TAB,          KC_SPC,         KC_APP,         KC_NO,          TG(JV_GAME)
@@ -149,8 +149,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [JV_BASE]    = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(MS_WHLD, MS_WHLU) },
-    [JV_EXTRA]   = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [JV_TAP]     = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [JV_QWERTY]   = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [JV_WINDOWS]     = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
     [JV_BUTTON]  = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(MS_WHLL, MS_WHLR) },
     [JV_NAV]     = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
     [JV_MOUSE]   = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
