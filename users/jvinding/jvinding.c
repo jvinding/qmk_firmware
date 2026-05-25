@@ -63,7 +63,7 @@ void jv_td_fn_##LAYER(tap_dance_state_t *state, void *user_data) { \
 
 JV_TD_LAYER_FN(BASE)
 JV_TD_LAYER_FN(QWERTY)
-JV_TD_LAYER_FN(WINDOWS)
+JV_TD_LAYER_FN(OSALT)
 JV_TD_LAYER_FN(BUTTON)
 JV_TD_LAYER_FN(NAV)
 JV_TD_LAYER_FN(MOUSE)
@@ -77,7 +77,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [JV_TD_BOOT]   = ACTION_TAP_DANCE_FN(jv_td_fn_boot),
     [JV_TD_BASE]   = ACTION_TAP_DANCE_FN(jv_td_fn_BASE),
     [JV_TD_QWERTY] = ACTION_TAP_DANCE_FN(jv_td_fn_QWERTY),
-    [JV_TD_WINDOWS]= ACTION_TAP_DANCE_FN(jv_td_fn_WINDOWS),
+    [JV_TD_OSALT]  = ACTION_TAP_DANCE_FN(jv_td_fn_OSALT),
     [JV_TD_BUTTON] = ACTION_TAP_DANCE_FN(jv_td_fn_BUTTON),
     [JV_TD_NAV]    = ACTION_TAP_DANCE_FN(jv_td_fn_NAV),
     [JV_TD_MOUSE]  = ACTION_TAP_DANCE_FN(jv_td_fn_MOUSE),
@@ -103,6 +103,7 @@ const key_override_t *key_overrides[] = {
 // RGB init via keyboard_post_init_keymap (holykeebs owns keyboard_post_init_user)
 // ---------------------------------------------------------------------------
 
+#ifndef KEYMAP_OVERRIDE_POST_INIT
 void keyboard_post_init_keymap(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_enable_noeeprom();
@@ -110,3 +111,4 @@ void keyboard_post_init_keymap(void) {
     rgb_matrix_sethsv_noeeprom(HSV_WHITE);
 #endif
 }
+#endif

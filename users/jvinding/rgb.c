@@ -36,7 +36,7 @@ HSV jv_hsv_for_layer_id(uint8_t id) {
     switch (id) {
         case JV_BASE:    return JV_C_LAVENDER;   // pastel blue-purple, easy on eyes
         case JV_QWERTY:   return JV_C_PINK;
-        case JV_WINDOWS:     return JV_C_ROSEWATER;
+        case JV_OSALT:       return JV_C_ROSEWATER;
         case JV_BUTTON:  return JV_C_SAPPHIRE;
         case JV_NAV:     return JV_C_SKY;
         case JV_MOUSE:   return JV_C_YELLOW;
@@ -54,7 +54,7 @@ HSV jv_hsv_for_layer_id(uint8_t id) {
 // TD index → target layer (0xFF = no layer target)
 static const uint8_t jv_td_target_layer[12] = {
     0xFF,        // JV_TD_BOOT
-    JV_BASE, JV_QWERTY, JV_WINDOWS, JV_BUTTON,
+    JV_BASE, JV_QWERTY, JV_OSALT, JV_BUTTON,
     JV_NAV, JV_MOUSE, JV_MEDIA, JV_NUM, JV_NUMPAD, JV_SYM, JV_FUN
 };
 

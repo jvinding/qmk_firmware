@@ -11,7 +11,7 @@ extern bool jv_caps_word;
 enum jv_layers {
     JV_BASE,
     JV_QWERTY,
-    JV_WINDOWS,
+    JV_OSALT,
     JV_BUTTON,
     JV_NAV,
     JV_MOUSE,
@@ -51,7 +51,7 @@ enum jv_tap_dances {
     JV_TD_BOOT,
     JV_TD_BASE,
     JV_TD_QWERTY,
-    JV_TD_WINDOWS,
+    JV_TD_OSALT,
     JV_TD_BUTTON,
     JV_TD_NAV,
     JV_TD_MOUSE,
@@ -66,12 +66,20 @@ enum jv_tap_dances {
 // Shorthand aliases
 // ---------------------------------------------------------------------------
 
-// Mac clipboard
+// Clipboard — Windows when JV_WINDOWS_FIRST is defined, Mac otherwise
+#ifdef JV_WINDOWS_FIRST
+#define JV_UND C(KC_Z)
+#define JV_CUT C(KC_X)
+#define JV_CPY C(KC_C)
+#define JV_PST C(KC_V)
+#define JV_RDO C(S(KC_Z))
+#else
 #define JV_UND LCMD(KC_Z)
 #define JV_CUT LCMD(KC_X)
 #define JV_CPY LCMD(KC_C)
 #define JV_PST LCMD(KC_V)
 #define JV_RDO SCMD(KC_Z)
+#endif
 
 #define JV_NA  KC_NO   // present but unavailable
 #define JV_NU  KC_NO   // present but unused
@@ -106,15 +114,17 @@ enum jv_tap_dances {
 #define JV_QWERTY_THUMBS_L  JV_BASE_THUMBS_L
 #define JV_QWERTY_THUMBS_R  JV_BASE_THUMBS_R
 
-// WINDOWS
-#define JV_WINDOWS_ROW0_L  KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,          KC_TRNS
-#define JV_WINDOWS_ROW0_R  KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,          KC_TRNS
-#define JV_WINDOWS_ROW1_L  LGUI_T(KC_A), KC_TRNS, LCTL_T(KC_S), KC_TRNS,    KC_TRNS
-#define JV_WINDOWS_ROW1_R  KC_TRNS, KC_TRNS, RCTL_T(KC_E), KC_TRNS,         RGUI_T(KC_O)
-#define JV_WINDOWS_ROW2_L  KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,          KC_TRNS
-#define JV_WINDOWS_ROW2_R  KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,          KC_TRNS
-#define JV_WINDOWS_THUMBS_L  KC_TRNS, KC_TRNS, KC_TRNS
-#define JV_WINDOWS_THUMBS_R  KC_TRNS, KC_TRNS, KC_TRNS
+// OSALT (OS-alternate overlay: swaps LCTL↔LGUI for the other platform's convention)
+// On Mac-first boards (default): overlay switches home row to Windows-style mods.
+// On JV_WINDOWS_FIRST boards (sofle): overlay is defined inline in the keymap.
+#define JV_OSALT_ROW0_L  KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS
+#define JV_OSALT_ROW0_R  KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS
+#define JV_OSALT_ROW1_L  LGUI_T(KC_A), KC_TRNS, LCTL_T(KC_S), KC_TRNS,     KC_TRNS
+#define JV_OSALT_ROW1_R  KC_TRNS, KC_TRNS, RCTL_T(KC_E),  KC_TRNS,          RGUI_T(KC_O)
+#define JV_OSALT_ROW2_L  KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS
+#define JV_OSALT_ROW2_R  KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS
+#define JV_OSALT_THUMBS_L  KC_TRNS, KC_TRNS, KC_TRNS
+#define JV_OSALT_THUMBS_R  KC_TRNS, KC_TRNS, KC_TRNS
 
 // BUTTON
 #define JV_BUTTON_ROW0_L  MS_WHLL,  MS_WHLD,  MS_WHLU,  MS_WHLR,  JV_UND
@@ -129,7 +139,7 @@ enum jv_tap_dances {
 
 // NAV (inverted-T: PGUP/HOME/UP/END/INS top row, PGDN/LEFT/DOWN/RGHT/CW_TOGG home row)
 #define JV_NAV_ROW0_L  KC_PGUP,  KC_HOME,            KC_UP,              KC_END,            KC_INS
-#define JV_NAV_ROW0_R  JV_NA,    TD(JV_TD_BASE),     TD(JV_TD_QWERTY),    TD(JV_TD_WINDOWS),     TD(JV_TD_BOOT)
+#define JV_NAV_ROW0_R  JV_NA,    TD(JV_TD_BASE),     TD(JV_TD_QWERTY),    TD(JV_TD_OSALT),     TD(JV_TD_BOOT)
 #define JV_NAV_ROW1_L  KC_PGDN,  KC_LEFT,            KC_DOWN,            KC_RGHT,           CW_TOGG
 #define JV_NAV_ROW1_R  KC_HYPR,  KC_RSFT,            KC_RGUI,            KC_RALT,           KC_RCTL
 #define JV_NAV_ROW2_L  JV_UND,   JV_CUT,             JV_CPY,             JV_PST,            JV_RDO
@@ -140,7 +150,7 @@ enum jv_tap_dances {
 
 // MOUSE
 #define JV_MOUSE_ROW0_L  MS_WHLU,  MS_WHLL,  MS_UP,    MS_WHLR,  JV_NU
-#define JV_MOUSE_ROW0_R  JV_NA,    TD(JV_TD_BASE),  TD(JV_TD_QWERTY),  TD(JV_TD_WINDOWS),  TD(JV_TD_BOOT)
+#define JV_MOUSE_ROW0_R  JV_NA,    TD(JV_TD_BASE),  TD(JV_TD_QWERTY),  TD(JV_TD_OSALT),  TD(JV_TD_BOOT)
 #define JV_MOUSE_ROW1_L  MS_WHLD,  MS_LEFT,  MS_DOWN,  MS_RGHT,  JV_NU
 #define JV_MOUSE_ROW1_R  KC_HYPR,  KC_RSFT,  KC_RGUI,  KC_RALT,  KC_RCTL
 #define JV_MOUSE_ROW2_L  JV_UND,   JV_CUT,   JV_CPY,   JV_PST,   JV_RDO
@@ -151,7 +161,7 @@ enum jv_tap_dances {
 
 // MEDIA
 #define JV_MEDIA_ROW0_L  UG_HUEU,  UG_SATU,  KC_VOLU,  UG_VALU,  UG_TOGG
-#define JV_MEDIA_ROW0_R  JV_NA,    TD(JV_TD_BASE),  TD(JV_TD_QWERTY),  TD(JV_TD_WINDOWS),  TD(JV_TD_BOOT)
+#define JV_MEDIA_ROW0_R  JV_NA,    TD(JV_TD_BASE),  TD(JV_TD_QWERTY),  TD(JV_TD_OSALT),  TD(JV_TD_BOOT)
 #define JV_MEDIA_ROW1_L  UG_NEXT,  KC_MPRV,  KC_VOLD,  KC_MNXT,  UG_NEXT
 #define JV_MEDIA_ROW1_R  KC_HYPR,  KC_RSFT,  KC_RGUI,  KC_RALT,  KC_RCTL
 #define JV_MEDIA_ROW2_L  JV_NU,    JV_NU,    JV_NU,    JV_NU,    RGB_M_T
@@ -161,7 +171,7 @@ enum jv_tap_dances {
 #define JV_MEDIA_THUMBS_R  JV_NA,    JV_NA,    JV_NA
 
 // NUM
-#define JV_NUM_ROW0_L  TD(JV_TD_BOOT),  TD(JV_TD_WINDOWS),  TD(JV_TD_QWERTY),  TD(JV_TD_BASE),  MO(JV_NUMPAD)
+#define JV_NUM_ROW0_L  TD(JV_TD_BOOT),  TD(JV_TD_OSALT),  TD(JV_TD_QWERTY),  TD(JV_TD_BASE),  MO(JV_NUMPAD)
 #define JV_NUM_ROW0_R  KC_LBRC,  KC_7,  KC_8,  KC_9,  KC_RBRC
 #define JV_NUM_ROW1_L  KC_LCTL,  KC_LALT,  KC_LGUI,  KC_LSFT,  KC_HYPR
 #define JV_NUM_ROW1_R  KC_EQL,   KC_4,  KC_5,  KC_6,  KC_SCLN
@@ -172,7 +182,7 @@ enum jv_tap_dances {
 #define JV_NUM_THUMBS_R  KC_MINS,  KC_0,  KC_DOT
 
 // NUMPAD
-#define JV_NUMPAD_ROW0_L  TD(JV_TD_BOOT),  TD(JV_TD_WINDOWS),  TD(JV_TD_QWERTY),  TD(JV_TD_BASE),  JV_NA
+#define JV_NUMPAD_ROW0_L  TD(JV_TD_BOOT),  TD(JV_TD_OSALT),  TD(JV_TD_QWERTY),  TD(JV_TD_BASE),  JV_NA
 #define JV_NUMPAD_ROW0_R  KC_KP_SLASH,     KC_KP_7,  KC_KP_8,  KC_KP_9,  KC_KP_MINUS
 #define JV_NUMPAD_ROW1_L  KC_LCTL,  KC_LALT,  KC_LGUI,  KC_LSFT,  KC_HYPR
 #define JV_NUMPAD_ROW1_R  KC_KP_ASTERISK,  KC_KP_4,  KC_KP_5,  KC_KP_6,  KC_KP_PLUS
@@ -183,7 +193,7 @@ enum jv_tap_dances {
 #define JV_NUMPAD_THUMBS_R  KC_BSPC,  KC_KP_0,    KC_KP_DOT
 
 // SYM
-#define JV_SYM_ROW0_L  TD(JV_TD_BOOT),  TD(JV_TD_WINDOWS),  TD(JV_TD_QWERTY),  TD(JV_TD_BASE),  JV_NA
+#define JV_SYM_ROW0_L  TD(JV_TD_BOOT),  TD(JV_TD_OSALT),  TD(JV_TD_QWERTY),  TD(JV_TD_BASE),  JV_NA
 #define JV_SYM_ROW0_R  KC_LCBR,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RCBR
 #define JV_SYM_ROW1_L  KC_LCTL,  KC_LALT,  KC_LGUI,  KC_LSFT,  KC_HYPR
 #define JV_SYM_ROW1_R  KC_PLUS,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_COLN
@@ -194,7 +204,7 @@ enum jv_tap_dances {
 #define JV_SYM_THUMBS_R  KC_UNDS,  KC_LPRN,  KC_RPRN
 
 // FUN
-#define JV_FUN_ROW0_L  TD(JV_TD_BOOT),  TD(JV_TD_WINDOWS),  TD(JV_TD_QWERTY),  TD(JV_TD_BASE),  JV_NA
+#define JV_FUN_ROW0_L  TD(JV_TD_BOOT),  TD(JV_TD_OSALT),  TD(JV_TD_QWERTY),  TD(JV_TD_BASE),  JV_NA
 #define JV_FUN_ROW0_R  KC_PSCR,  KC_F7,  KC_F8,  KC_F9,  KC_F12
 #define JV_FUN_ROW1_L  KC_LCTL,  KC_LALT,  KC_LGUI,  KC_LSFT,  KC_HYPR
 #define JV_FUN_ROW1_R  KC_SCRL,  KC_F4,  KC_F5,  KC_F6,  KC_F11
