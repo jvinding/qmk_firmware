@@ -116,7 +116,7 @@ static void render_uptime_line(void) {
     uint32_t s = timer_read32() / 1000;
     uint16_t h = (uint16_t)(s / 3600);
     uint8_t  m = (uint8_t)((s % 3600) / 60);
-    char buf[8];
+    char buf[9];
     snprintf(buf, sizeof(buf), "%uh%02um", h, m);
     oled_write_ln_P(PSTR("UP"), false);
     oled_write_ln(buf, false);

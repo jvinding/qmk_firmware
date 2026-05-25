@@ -21,9 +21,5 @@
 #define NO_ACTION_ONESHOT
 #define NO_MUSIC_MODE
 
-// Disable features we don't need
-#define NO_ACTION_ONESHOT
-#define NO_MUSIC_MODE
-
 #define NO_AUTO_SHIFT_ALPHA
 #define AUTO_SHIFT_TIMEOUT 175

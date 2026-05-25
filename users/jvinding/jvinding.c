@@ -89,17 +89,6 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 // ---------------------------------------------------------------------------
-// Key overrides: Shift + CW_TOGG → Caps Lock
-// ---------------------------------------------------------------------------
-
-const key_override_t capsword_key_override = ko_make_basic(MOD_MASK_SHIFT, CW_TOGG, KC_CAPS);
-
-const key_override_t *key_overrides[] = {
-    &capsword_key_override,
-    NULL
-};
-
-// ---------------------------------------------------------------------------
 // RGB init via keyboard_post_init_keymap (holykeebs owns keyboard_post_init_user)
 // ---------------------------------------------------------------------------
 
