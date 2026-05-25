@@ -96,7 +96,7 @@ static void render_keystats(void) {
     oled_write(buf, false);
 
     for (uint8_t f = 0; f < KS_FINGERS; f++) {
-        uint8_t h   = (uint8_t)((ks_counts[f] * 96UL) / ks_max);
+        uint8_t h   = (uint8_t)((uint64_t)ks_counts[f] * 96 / ks_max);
         uint8_t x0  = ks_bar_x[f];
         uint8_t top = (uint8_t)(120 - h);  // y from which bar pixels are lit
         for (uint8_t y = 24; y <= 119; y++) {
