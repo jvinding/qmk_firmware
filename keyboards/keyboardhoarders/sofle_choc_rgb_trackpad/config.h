@@ -9,6 +9,15 @@
 // is on both (or on neither). Matches vendor vial config.
 #define SPLIT_USB_DETECT
 #define MASTER_RIGHT
+#define JV_WINDOWS_FIRST
+// Skip the boot-time SUSPENDED busy-loop. Required when SPLIT_USB_DETECT is
+// set on Windows hosts — long S3 sleep can leave the master half wedged in
+// the chibios protocol loop on resume, preventing matrix scan and RGB output
+// until USB is replugged.
+#define NO_USB_STARTUP_CHECK
+// Settle delay after the host signals wakeup. Windows resume often bounces
+// SUSPEND/RESUME edges; 200 ms prevents HID endpoint races.
+#define USB_SUSPEND_WAKEUP_DELAY 200
 
 // Trackpad (Azoteq TPS43, right half, I2C on same GP2/GP3 pins as left OLED)
 #define SPLIT_POINTING_ENABLE
