@@ -99,6 +99,12 @@ static bool jv_is_mouse_button_or_scroll(uint16_t kc) {
 // ---------------------------------------------------------------------------
 
 static HSV jv_hsv_for_key_in_context(uint8_t global_layer, uint8_t per_key_layer, uint16_t kc) {
+    // Toggle-to-game key: color it by where it takes you.
+    if (IS_QK_TOGGLE_LAYER(kc) && QK_TOGGLE_LAYER_GET_LAYER(kc) == JV_GAME) {
+        bool on_game = (global_layer == JV_GAME || global_layer == JV_GAME_FN);
+        return jv_hsv_for_layer_id(on_game ? JV_BASE : JV_GAME);
+    }
+
     // Layer-switching keys → target layer color
     int8_t t = jv_layer_key_target_id(kc);
     if (t >= 0) {
@@ -134,7 +140,15 @@ static HSV jv_hsv_for_key_in_context(uint8_t global_layer, uint8_t per_key_layer
     if (jv_is_mouse_button_or_scroll(kc) || jv_is_mouse_button_or_scroll(inner))
         return jv_hsv_for_layer_id(JV_MOUSE);
 
-    // Gaming layer accents
+    // Gaming layers — numpad/function/number keys mirror their layer colors
+    if (global_layer == JV_GAME || global_layer == JV_GAME_FN) {
+        if ((inner >= KC_NUM_LOCK && inner <= KC_KP_DOT) || inner == KC_KP_EQUAL)
+            return jv_hsv_for_layer_id(JV_NUMPAD);
+        if (inner >= KC_F1 && inner <= KC_F12)
+            return jv_hsv_for_layer_id(JV_FUN);
+        if (inner >= KC_1 && inner <= KC_0)
+            return jv_hsv_for_layer_id(JV_NUM);
+    }
     if (global_layer == JV_GAME) {
         if (inner == KC_W || inner == KC_A || inner == KC_S || inner == KC_D)
             return JV_C_RED;
@@ -144,10 +158,6 @@ static HSV jv_hsv_for_key_in_context(uint8_t global_layer, uint8_t per_key_layer
             return JV_C_RED;
         if (inner == KC_PGUP || inner == KC_PGDN || inner == KC_HOME || inner == KC_END || inner == KC_INS)
             return jv_hsv_for_layer_id(JV_NAV);
-        if ((inner >= KC_NUM_LOCK && inner <= KC_KP_DOT) || inner == KC_KP_EQUAL)
-            return jv_hsv_for_layer_id(JV_NUMPAD);
-        if (inner >= KC_F1 && inner <= KC_F12)
-            return jv_hsv_for_layer_id(JV_FUN);
     }
 
     return jv_hsv_for_layer_id(per_key_layer);
