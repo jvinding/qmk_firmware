@@ -123,7 +123,26 @@ static void render_uptime_line(void) {
     oled_write_ln_P(PSTR(""), false);
 }
 
+static void render_builddate(void) {
+    static const char d[] = __DATE__;  // "Mmm dd yyyy"
+    char mday[6];
+    char year[5];
+    char day_hi = (d[4] == ' ') ? '0' : d[4];
+    snprintf(mday, sizeof(mday), "%c%c%c%c%c", d[0], d[1], d[2], day_hi, d[5]);
+    snprintf(year, sizeof(year), "%c%c%c%c", d[7], d[8], d[9], d[10]);
+    oled_write_ln_P(PSTR("LYR"), false);
+    oled_write_ln_P(PSTR("Fun"), false);
+    oled_write_ln_P(PSTR(""), false);
+    oled_write_ln_P(PSTR("BLD"), false);
+    oled_write_ln(mday, false);
+    oled_write_ln(year, false);
+}
+
 void jv_oled_render_status(void) {
+    if (get_highest_layer(layer_state | default_layer_state) == JV_FUN) {
+        render_builddate();
+        return;
+    }
     render_layer_line();
 #ifdef SPLIT_MODS_ENABLE
     render_mods_line();
