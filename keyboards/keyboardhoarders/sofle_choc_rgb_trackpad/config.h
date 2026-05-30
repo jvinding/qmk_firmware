@@ -8,6 +8,9 @@
 // Split handedness: USB-connected half is master; left side is master when USB
 // is on both (or on neither). Matches vendor vial config.
 #define SPLIT_USB_DETECT
+#define SPLIT_USB_TIMEOUT 2500
+#define SPLIT_WATCHDOG_ENABLE
+#define SPLIT_WATCHDOG_TIMEOUT 3000
 #define MASTER_RIGHT
 #define JV_WINDOWS_FIRST
 // Skip the boot-time SUSPENDED busy-loop. Required when SPLIT_USB_DETECT is

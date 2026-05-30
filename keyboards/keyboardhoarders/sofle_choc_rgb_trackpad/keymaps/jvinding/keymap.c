@@ -156,6 +156,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void keyboard_post_init_keymap(void) {
+#ifdef JV_WINDOWS_FIRST
+    // Windows-first board: EEPROM may still hold OSALT (Mac overlay) from an
+    // older session or VIA tweak — always come back on the Windows base layer.
+    if (default_layer_state & (layer_state_t)1 << JV_OSALT) {
+        set_single_persistent_default_layer(JV_BASE);
+    }
+#endif
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_enable_noeeprom();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
@@ -166,10 +173,22 @@ void keyboard_post_init_keymap(void) {
     jv_trackpad_disabled = cfg.trackpad_disabled;
 }
 
+void suspend_power_down_user(void) {
+    // Drop held LT/MO layers before sleep so wake doesn't inherit a stale NUM
+    // (or other overlay) that makes PIN/login keys send modifiers instead of digits.
+    layer_clear();
+}
+
 void suspend_wakeup_init_user(void) {
     // ChibiOS's wake path skips the mouse HID report and never touches the
     // pointing-device sticky button byte — so any MS_BTN*/MS_WHL* bit latched
     // before sleep (or a phantom Azoteq tap on wake) stays pressed forever.
+    layer_clear();
+#ifndef NO_ACTION_ONESHOT
+    clear_oneshot_mods();
+    clear_oneshot_layer_state(ONESHOT_PRESSED);
+    clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+#endif
     clear_keyboard();
 #ifdef POINTING_DEVICE_ENABLE
     report_mouse_t empty = {0};
