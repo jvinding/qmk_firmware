@@ -426,7 +426,6 @@ ifneq ($(QMK_USERSPACE),)
     	USER_PATH := $(QMK_USERSPACE)/$(USER_PATH)
 	endif
 endif
-endif
 
 # Pull in user level rules.mk
 -include $(USER_PATH)/rules.mk
