@@ -5,6 +5,10 @@
 // EECONFIG_USER_DATA_SIZE, etc.
 #include "users/holykeebs/config.h"
 
+// Give the USB link a moment to settle after a host wake before resuming
+// HID report sending, in case the state bounces right after resume.
+#define USB_SUSPEND_WAKEUP_DELAY 200
+
 // Gate the pointing device to the right (master) side only.
 // Without these, ps2_mouse_init() and the PS/2 polling loop would run on the
 // left (slave) too, stalling its matrix scan and causing taps to be missed.
