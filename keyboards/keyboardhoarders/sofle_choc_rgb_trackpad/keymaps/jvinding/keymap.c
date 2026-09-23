@@ -218,6 +218,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#ifdef AUTO_SHIFT_ENABLE
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Auto-shift must not fire while gaming (held WASD / numbers / symbols).
+    if (layer_state_cmp(state, JV_GAME) || layer_state_cmp(state, JV_GAME_FN)) {
+        autoshift_disable();
+    } else {
+        autoshift_enable();
+    }
+    return state;
+}
+#endif
+
 // ---------------------------------------------------------------------------
 // Encoder map: left = index 0 (master), right = index 1 (slave).
 // Rotation uses encoder_map; press is a normal matrix keycode ([4,5] and [9,5]).
