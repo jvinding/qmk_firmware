@@ -27,7 +27,7 @@ layers:
     - P
     - "\\"
     # row 2 — home row
-    - LSft
+    - BkSp
     - A
     - S
     - D
@@ -40,7 +40,7 @@ layers:
     - ";"
     - "'"
     # row 3 — bottom alpha; encoder presses in the middle
-    - LCtl
+    - KP-
     - Z
     - X
     - C
@@ -81,7 +81,7 @@ layers:
     - F5
     - "="
     # row 1
-    - KP-
+    - KP+
     - PgUp
     - Home
     - Up
@@ -107,7 +107,7 @@ layers:
     - F11
     - F12
     # row 3 — encoder presses are transparent
-    - KP+
+    - KP-
     - KP6
     - KP7
     - KP8
