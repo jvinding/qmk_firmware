@@ -10,6 +10,9 @@ RGB_MATRIX_ENABLE = yes
 SRC += $(USER_PATH)/oled.c
 SRC += $(USER_PATH)/rgb.c
 
+# Lily58-specific landscape OLED views
+SRC += oled_status.c
+
 CAPS_WORD_ENABLE = yes
 MOUSEKEY_ENABLE  = yes
 COMBO_ENABLE     = yes

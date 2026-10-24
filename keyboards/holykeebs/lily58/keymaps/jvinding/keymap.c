@@ -142,6 +142,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+void keystats_record_press(uint16_t keycode, keyrecord_t *record);
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef OLED_ENABLE
+    keystats_record_press(keycode, record);
+#endif
+    return true;
+}
+
 void keyboard_post_init_keymap(void) {
     // Windows-first board: EEPROM may still hold OSALT (Mac overlay) from an
     // older session or VIA tweak — always come back on the Windows base layer.
