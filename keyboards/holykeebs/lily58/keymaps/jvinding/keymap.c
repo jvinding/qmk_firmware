@@ -157,6 +157,13 @@ void keyboard_post_init_keymap(void) {
     if (default_layer_state & (layer_state_t)1 << JV_OSALT) {
         set_single_persistent_default_layer(JV_BASE);
     }
+#ifdef RGB_MATRIX_ENABLE
+    // The vendor keyboard.json defaults to an animation; rgb.c paints every LED
+    // itself, so run the cheapest mode underneath it.
+    rgb_matrix_enable_noeeprom();
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+    rgb_matrix_sethsv_noeeprom(HSV_WHITE);
+#endif
 }
 
 void suspend_power_down_user(void) {

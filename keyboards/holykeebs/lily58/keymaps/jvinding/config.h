@@ -15,15 +15,15 @@
 #define SPLIT_LED_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
 
-// RGB matrix (underglow only, 6 LEDs per half) — layer colors come from users/jvinding/rgb.c
+// RGB matrix (per-key + 6 underglow LEDs per half) — layer colors come from users/jvinding/rgb.c
 #define JV_RGB_BRIGHTNESS 64u
-// Per-channel color correction (1024 = none), same values as the holykeebs crkbd.
+// Per-channel color correction (1024 = none), crkbd values x4 on red/green; the crkbd values crush hue (BASE vs GAME looked identical).
 // Left half runs a bit more orange than the right, hence the lower red/green there.
-#define JV_RGB_CORRECT_LEFT_R   40u
-#define JV_RGB_CORRECT_LEFT_G   40u
+#define JV_RGB_CORRECT_LEFT_R   90u
+#define JV_RGB_CORRECT_LEFT_G  120u
 #define JV_RGB_CORRECT_LEFT_B  640u
-#define JV_RGB_CORRECT_RIGHT_R  80u
-#define JV_RGB_CORRECT_RIGHT_G  72u
+#define JV_RGB_CORRECT_RIGHT_R 320u
+#define JV_RGB_CORRECT_RIGHT_G 288u
 #define JV_RGB_CORRECT_RIGHT_B 600u
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
